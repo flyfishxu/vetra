@@ -240,11 +240,9 @@ fun VetraBrandCard(
 ) {
     val colors = VetraTheme.colors
     val shapes = VetraTheme.shapes
-    val shadows = VetraTheme.shadows
     val interactionSource = remember { MutableInteractionSource() }
 
     val baseModifier = modifier
-        .vetraShadow(elevation = shadows.sm, shape = shapes.md)
         .clip(shapes.md)
         .background(colors.brandSubtle)
 

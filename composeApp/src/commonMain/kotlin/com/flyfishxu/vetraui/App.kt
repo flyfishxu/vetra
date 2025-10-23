@@ -45,8 +45,8 @@ import com.flyfishxu.vetraui.core.VetraNavigationBarItem
 import com.flyfishxu.vetraui.core.VetraOutlinedCard
 import com.flyfishxu.vetraui.core.VetraTopAppBar
 import com.flyfishxu.vetraui.core.theme.VetraTheme
-import com.flyfishxu.vetraui.screens.ComponentsGalleryScreen
-import com.flyfishxu.vetraui.screens.SettingsScreen
+import com.flyfishxu.vetraui.navigation.*
+import com.flyfishxu.vetraui.screens.*
 import com.flyfishxu.vetraui.theme.ThemeMode
 import com.flyfishxu.vetraui.theme.isSystemInDarkTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -57,12 +57,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * A comprehensive demonstration of all Vetra UI components and features.
  * Shows the elegant, modern design system in action.
  */
-
-enum class AppSection {
-    HOME,
-    COMPONENTS,
-    SETTINGS
-}
 
 @Composable
 @Preview
@@ -85,7 +79,13 @@ fun App(
         onThemeChanged?.invoke(isDarkMode)
     }
 
-    var selectedSection by remember { mutableStateOf(AppSection.HOME) }
+    // Navigation state
+    val navigationState = rememberNavigationState()
+    
+    // Handle back press
+    BackHandler(enabled = navigationState.canGoBack) {
+        navigationState.navigateBack()
+    }
 
     VetraTheme(darkMode = isDarkMode) {
         val colors = VetraTheme.colors
@@ -99,17 +99,23 @@ fun App(
             VetraTopAppBar(
                 title = {
                     Text(
-                        when (selectedSection) {
-                            AppSection.HOME -> "Vetra UI"
-                            AppSection.COMPONENTS -> "Components"
-                            AppSection.SETTINGS -> "Settings"
+                        when (navigationState.currentDestination) {
+                            is Destination.Home -> "Vetra UI"
+                            is Destination.Components -> "Components"
+                            is Destination.Settings -> "Settings"
+                            is Destination.ButtonsDetail -> "Buttons"
+                            is Destination.CardsDetail -> "Cards"
+                            is Destination.InputsDetail -> "Inputs"
+                            is Destination.SlidersDetail -> "Sliders"
+                            is Destination.MenuDetail -> "Menus"
+                            is Destination.LoadingDetail -> "Loading"
                         }
                     )
                 },
-                navigationIcon = if (selectedSection != AppSection.HOME) {
+                navigationIcon = if (navigationState.canGoBack) {
                     {
                         VetraIconButton(
-                            onClick = { selectedSection = AppSection.HOME },
+                            onClick = { navigationState.navigateBack() },
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back"
                         )
@@ -136,41 +142,67 @@ fun App(
 
             // Content
             Box(modifier = Modifier.weight(1f)) {
-                when (selectedSection) {
-                    AppSection.HOME -> HomeScreen(
-                        onNavigateToComponents = { selectedSection = AppSection.COMPONENTS }
+                when (navigationState.currentDestination) {
+                    is Destination.Home -> HomeScreen(
+                        onNavigateToComponents = { navigationState.navigateTo(Destination.Components) }
                     )
 
-                    AppSection.COMPONENTS -> ComponentsGalleryScreen()
+                    is Destination.Components -> ComponentsGalleryScreen(
+                        onNavigateToDetail = { destination -> navigationState.navigateTo(destination) }
+                    )
                     
-                    AppSection.SETTINGS -> SettingsScreen(
+                    is Destination.Settings -> SettingsScreen(
                         themeMode = themeMode,
                         systemInDarkMode = systemInDarkMode,
                         actualDarkMode = isDarkMode,
                         onThemeModeChange = { themeMode = it }
                     )
+                    
+                    // Component detail screens
+                    is Destination.ButtonsDetail -> ButtonsScreen()
+                    is Destination.CardsDetail -> CardsScreen()
+                    is Destination.InputsDetail -> InputsScreen()
+                    is Destination.SlidersDetail -> SlidersScreen()
+                    is Destination.MenuDetail -> MenuScreen()
+                    is Destination.LoadingDetail -> LoadingScreen()
                 }
             }
 
             // Bottom Navigation
             VetraNavigationBar {
                 VetraNavigationBarItem(
-                    selected = selectedSection == AppSection.HOME,
-                    onClick = { selectedSection = AppSection.HOME },
+                    selected = navigationState.currentDestination.getMainTab() is Destination.Home,
+                    onClick = { 
+                        if (navigationState.currentDestination !is Destination.Home) {
+                            navigationState.navigateAndClearStack(Destination.Home)
+                        }
+                    },
                     icon = Icons.Outlined.Home,
                     selectedIcon = Icons.Filled.Home,
                     label = "Home"
                 )
                 VetraNavigationBarItem(
-                    selected = selectedSection == AppSection.COMPONENTS,
-                    onClick = { selectedSection = AppSection.COMPONENTS },
+                    selected = navigationState.currentDestination.getMainTab() is Destination.Components,
+                    onClick = { 
+                        val mainTab = navigationState.currentDestination.getMainTab()
+                        if (mainTab !is Destination.Components) {
+                            navigationState.navigateAndClearStack(Destination.Components)
+                        } else if (navigationState.currentDestination !is Destination.Components) {
+                            // If we're in a detail screen, go back to components gallery
+                            navigationState.navigateBackTo(Destination.Components)
+                        }
+                    },
                     icon = Icons.Outlined.ViewModule,
                     selectedIcon = Icons.Filled.ViewModule,
                     label = "Components"
                 )
                 VetraNavigationBarItem(
-                    selected = selectedSection == AppSection.SETTINGS,
-                    onClick = { selectedSection = AppSection.SETTINGS },
+                    selected = navigationState.currentDestination.getMainTab() is Destination.Settings,
+                    onClick = { 
+                        if (navigationState.currentDestination !is Destination.Settings) {
+                            navigationState.navigateAndClearStack(Destination.Settings)
+                        }
+                    },
                     icon = Icons.Outlined.Settings,
                     selectedIcon = Icons.Filled.Settings,
                     label = "Settings"
@@ -188,10 +220,10 @@ fun HomeScreen(onNavigateToComponents: () -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 Text(
                     "Welcome to Vetra UI",
                     style = typography.displayMd.copy(color = colors.textPrimary)
@@ -236,7 +268,7 @@ fun HomeScreen(onNavigateToComponents: () -> Unit) {
 
         item {
             VetraOutlinedCard(modifier = Modifier.fillMaxWidth()) {
-                Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Column(verticalArrangement = Arrangement.spacedBy(20.dp)) {
                     Text(
                         "Design Principles",
                         style = typography.headingMd.copy(color = colors.textPrimary)
@@ -290,7 +322,10 @@ fun FeatureItem(
             modifier = Modifier.size(24.dp),
             tint = colors.brand
         )
-        Column(modifier = Modifier.weight(1f)) {
+        Column(
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
             Text(
                 title,
                 style = typography.bodyLg.copy(color = colors.textPrimary)

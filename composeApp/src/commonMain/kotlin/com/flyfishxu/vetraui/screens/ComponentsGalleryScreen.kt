@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.*
 import com.flyfishxu.vetraui.core.theme.VetraTheme
+import com.flyfishxu.vetraui.navigation.Destination
 
 /**
  * Components Gallery Screen
@@ -20,37 +21,11 @@ import com.flyfishxu.vetraui.core.theme.VetraTheme
  * A centralized screen showcasing all UI components in Vetra UI
  */
 @Composable
-fun ComponentsGalleryScreen() {
+fun ComponentsGalleryScreen(
+    onNavigateToDetail: (Destination) -> Unit
+) {
     val colors = VetraTheme.colors
     val typography = VetraTheme.typography
-
-    var selectedComponentType by remember { mutableStateOf<ComponentType?>(null) }
-
-    // If a component type is selected, show its detail screen
-    if (selectedComponentType != null) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            when (selectedComponentType) {
-                ComponentType.BUTTONS -> ButtonsScreen()
-                ComponentType.CARDS -> CardsScreen()
-                ComponentType.INPUTS -> InputsScreen()
-                ComponentType.SLIDERS -> SlidersScreen()
-                ComponentType.MENU -> MenuScreen()
-                ComponentType.LOADING -> LoadingScreen()
-                null -> {}
-            }
-
-            // Back button overlay
-            VetraIconButton(
-                onClick = { selectedComponentType = null },
-                imageVector = Icons.Filled.Close,
-                contentDescription = "Back to gallery",
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .padding(16.dp)
-            )
-        }
-        return
-    }
 
     // Main gallery view
     LazyColumn(
@@ -80,7 +55,7 @@ fun ComponentsGalleryScreen() {
                 description = "5 variants: Primary, Secondary, Outlined, Ghost, and Danger",
                 icon = Icons.Filled.TouchApp,
                 iconColor = colors.brand,
-                onClick = { selectedComponentType = ComponentType.BUTTONS }
+                onClick = { onNavigateToDetail(Destination.ButtonsDetail) }
             )
         }
 
@@ -91,7 +66,7 @@ fun ComponentsGalleryScreen() {
                 description = "5 card styles: Standard, Flat, Elevated, Outlined, and Brand",
                 icon = Icons.Filled.GridView,
                 iconColor = colors.accent,
-                onClick = { selectedComponentType = ComponentType.CARDS }
+                onClick = { onNavigateToDetail(Destination.CardsDetail) }
             )
         }
 
@@ -102,7 +77,7 @@ fun ComponentsGalleryScreen() {
                 description = "Text fields, switches, checkboxes, and radio buttons",
                 icon = Icons.Filled.Edit,
                 iconColor = colors.info,
-                onClick = { selectedComponentType = ComponentType.INPUTS }
+                onClick = { onNavigateToDetail(Destination.InputsDetail) }
             )
         }
 
@@ -113,7 +88,7 @@ fun ComponentsGalleryScreen() {
                 description = "Value selection sliders and visual content separators",
                 icon = Icons.Filled.Tune,
                 iconColor = colors.success,
-                onClick = { selectedComponentType = ComponentType.SLIDERS }
+                onClick = { onNavigateToDetail(Destination.SlidersDetail) }
             )
         }
 
@@ -124,7 +99,7 @@ fun ComponentsGalleryScreen() {
                 description = "Dropdown menus and contextual options",
                 icon = Icons.Filled.Menu,
                 iconColor = colors.brand,
-                onClick = { selectedComponentType = ComponentType.MENU }
+                onClick = { onNavigateToDetail(Destination.MenuDetail) }
             )
         }
 
@@ -135,7 +110,7 @@ fun ComponentsGalleryScreen() {
                 description = "Spinners, progress bars, and skeleton screens",
                 icon = Icons.Filled.HourglassBottom,
                 iconColor = colors.accent,
-                onClick = { selectedComponentType = ComponentType.LOADING }
+                onClick = { onNavigateToDetail(Destination.LoadingDetail) }
             )
         }
 
@@ -285,17 +260,5 @@ private fun StatItem(
             style = typography.bodySm.copy(color = colors.textSecondary)
         )
     }
-}
-
-/**
- * Component Type enum
- */
-enum class ComponentType {
-    BUTTONS,
-    CARDS,
-    INPUTS,
-    SLIDERS,
-    MENU,
-    LOADING
 }
 
