@@ -1,4 +1,4 @@
-package com.flyfishxu.vetraui.core.components
+package com.flyfishxu.vetraui.core
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

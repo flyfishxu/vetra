@@ -14,16 +14,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.components.LoadingSize
-import com.flyfishxu.vetraui.core.components.VetraCard
-import com.flyfishxu.vetraui.core.components.VetraLinearProgress
-import com.flyfishxu.vetraui.core.components.VetraLoadingDots
-import com.flyfishxu.vetraui.core.components.VetraLoadingPulse
-import com.flyfishxu.vetraui.core.components.VetraLoadingSpinner
-import com.flyfishxu.vetraui.core.components.VetraSkeletonButton
-import com.flyfishxu.vetraui.core.components.VetraSkeletonCard
-import com.flyfishxu.vetraui.core.components.VetraSkeletonListItem
-import com.flyfishxu.vetraui.core.components.VetraSkeletonText
+import com.flyfishxu.vetraui.core.LoadingSize
+import com.flyfishxu.vetraui.core.VetraCard
+import com.flyfishxu.vetraui.core.VetraLinearProgress
+import com.flyfishxu.vetraui.core.VetraLoadingDots
+import com.flyfishxu.vetraui.core.VetraLoadingPulse
+import com.flyfishxu.vetraui.core.VetraLoadingSpinner
+import com.flyfishxu.vetraui.core.VetraSkeletonButton
+import com.flyfishxu.vetraui.core.VetraSkeletonCard
+import com.flyfishxu.vetraui.core.VetraSkeletonListItem
+import com.flyfishxu.vetraui.core.VetraSkeletonText
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 
 @Composable

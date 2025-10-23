@@ -1,4 +1,4 @@
-package com.flyfishxu.vetraui.core.components
+package com.flyfishxu.vetraui.core
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseInOutCubic
@@ -47,6 +47,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
@@ -155,7 +156,7 @@ fun RowScope.VetraNavigationBarItem(
     )
 
     val backgroundColor by animateColorAsState(
-        targetValue = if (selected) colors.brandSubtle else androidx.compose.ui.graphics.Color.Transparent,
+        targetValue = if (selected) colors.brandSubtle else Color.Transparent,
         animationSpec = tween(durationMillis = AnimationDuration, easing = EaseInOutCubic),
         label = "backgroundColor"
     )

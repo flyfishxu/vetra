@@ -11,7 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.components.*
+import com.flyfishxu.vetraui.core.*
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 
 /**

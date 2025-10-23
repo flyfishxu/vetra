@@ -52,15 +52,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.components.VetraButton
-import com.flyfishxu.vetraui.core.components.VetraCard
-import com.flyfishxu.vetraui.core.components.VetraContextMenu
-import com.flyfishxu.vetraui.core.components.VetraDropdownMenu
-import com.flyfishxu.vetraui.core.components.VetraIconMenuButton
-import com.flyfishxu.vetraui.core.components.VetraMenuButton
-import com.flyfishxu.vetraui.core.components.VetraMenuDivider
-import com.flyfishxu.vetraui.core.components.VetraMenuItem
-import com.flyfishxu.vetraui.core.components.VetraMenuLabel
+import com.flyfishxu.vetraui.core.VetraButton
+import com.flyfishxu.vetraui.core.VetraCard
+import com.flyfishxu.vetraui.core.VetraContextMenu
+import com.flyfishxu.vetraui.core.VetraDropdownMenu
+import com.flyfishxu.vetraui.core.VetraIconMenuButton
+import com.flyfishxu.vetraui.core.VetraMenuButton
+import com.flyfishxu.vetraui.core.VetraMenuDivider
+import com.flyfishxu.vetraui.core.VetraMenuItem
+import com.flyfishxu.vetraui.core.VetraMenuLabel
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

@@ -20,14 +20,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.components.VetraButton
-import com.flyfishxu.vetraui.core.components.VetraDangerButton
-import com.flyfishxu.vetraui.core.components.VetraFilledIconButton
-import com.flyfishxu.vetraui.core.components.VetraGhostButton
-import com.flyfishxu.vetraui.core.components.VetraIconButton
-import com.flyfishxu.vetraui.core.components.VetraOutlinedButton
-import com.flyfishxu.vetraui.core.components.VetraOutlinedIconButton
-import com.flyfishxu.vetraui.core.components.VetraSecondaryButton
+import com.flyfishxu.vetraui.core.VetraButton
+import com.flyfishxu.vetraui.core.VetraDangerButton
+import com.flyfishxu.vetraui.core.VetraFilledIconButton
+import com.flyfishxu.vetraui.core.VetraGhostButton
+import com.flyfishxu.vetraui.core.VetraIconButton
+import com.flyfishxu.vetraui.core.VetraOutlinedButton
+import com.flyfishxu.vetraui.core.VetraOutlinedIconButton
+import com.flyfishxu.vetraui.core.VetraSecondaryButton
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 
 @Composable

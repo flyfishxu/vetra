@@ -1,4 +1,4 @@
-package com.flyfishxu.vetraui.core.components
+package com.flyfishxu.vetraui.core
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseInOutCubic
@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,6 +41,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.theme.VetraTheme
@@ -251,7 +253,7 @@ fun VetraTextField(
                 // Leading icon
                 if (leadingIcon != null) {
                     Box(modifier = Modifier.padding(end = 12.dp)) {
-                        androidx.compose.runtime.CompositionLocalProvider(
+                        CompositionLocalProvider(
                             LocalContentColor provides colors.textSecondary
                         ) {
                             leadingIcon()
@@ -291,7 +293,7 @@ fun VetraTextField(
                 // Trailing icon
                 if (trailingIcon != null) {
                     Box(modifier = Modifier.padding(start = 12.dp)) {
-                        androidx.compose.runtime.CompositionLocalProvider(
+                        CompositionLocalProvider(
                             LocalContentColor provides colors.textSecondary
                         ) {
                             trailingIcon()
@@ -378,7 +380,7 @@ private fun VetraTextFieldPreview() {
                 onValueChange = { passwordText = it },
                 label = "Password",
                 placeholder = "Enter password",
-                visualTransformation = androidx.compose.ui.text.input.PasswordVisualTransformation(),
+                visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
         }

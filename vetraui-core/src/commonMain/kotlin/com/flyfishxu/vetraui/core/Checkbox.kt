@@ -1,4 +1,4 @@
-package com.flyfishxu.vetraui.core.components
+package com.flyfishxu.vetraui.core
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState

@@ -1,4 +1,4 @@
-package com.flyfishxu.vetraui.core.components
+package com.flyfishxu.vetraui.core
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -19,8 +19,11 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,6 +32,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.lerp
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -105,8 +109,8 @@ fun VetraTopAppBar(
             // Navigation icon
             if (navigationIcon != null) {
                 Box(contentAlignment = Alignment.Center) {
-                    androidx.compose.runtime.CompositionLocalProvider(
-                        androidx.compose.material3.LocalContentColor provides colors.textPrimary
+                    CompositionLocalProvider(
+                        LocalContentColor provides colors.textPrimary
                     ) {
                         navigationIcon()
                     }
@@ -118,11 +122,11 @@ fun VetraTopAppBar(
                 modifier = Modifier.weight(1f),
                 contentAlignment = Alignment.CenterStart
             ) {
-                androidx.compose.runtime.CompositionLocalProvider(
-                    androidx.compose.material3.LocalContentColor provides colors.textPrimary
+                CompositionLocalProvider(
+                    LocalContentColor provides colors.textPrimary
                 ) {
-                    androidx.compose.runtime.CompositionLocalProvider(
-                        androidx.compose.material3.LocalTextStyle provides typography.headingSm
+                    CompositionLocalProvider(
+                        LocalTextStyle provides typography.headingSm
                     ) {
                         title()
                     }
@@ -134,8 +138,8 @@ fun VetraTopAppBar(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                androidx.compose.runtime.CompositionLocalProvider(
-                    androidx.compose.material3.LocalContentColor provides colors.textSecondary
+                CompositionLocalProvider(
+                    LocalContentColor provides colors.textSecondary
                 ) {
                     actions()
                 }
@@ -167,7 +171,7 @@ fun VetraLargeTopAppBar(
     val typography = VetraTheme.typography
 
     // Interpolate height
-    val height = androidx.compose.ui.unit.lerp(
+    val height = lerp(
         LargeTopAppBarExpandedHeight,
         LargeTopAppBarCollapsedHeight,
         scrollProgress
@@ -231,8 +235,8 @@ fun VetraLargeTopAppBar(
                 // Navigation icon
                 if (navigationIcon != null) {
                     Box(contentAlignment = Alignment.Center) {
-                        androidx.compose.runtime.CompositionLocalProvider(
-                            androidx.compose.material3.LocalContentColor provides colors.textPrimary
+                        CompositionLocalProvider(
+                            LocalContentColor provides colors.textPrimary
                         ) {
                             navigationIcon()
                         }
@@ -258,8 +262,8 @@ fun VetraLargeTopAppBar(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    androidx.compose.runtime.CompositionLocalProvider(
-                        androidx.compose.material3.LocalContentColor provides colors.textSecondary
+                    CompositionLocalProvider(
+                        LocalContentColor provides colors.textSecondary
                     ) {
                         actions()
                     }
@@ -342,8 +346,8 @@ fun VetraCenterTopAppBar(
                 contentAlignment = Alignment.CenterStart
             ) {
                 if (navigationIcon != null) {
-                    androidx.compose.runtime.CompositionLocalProvider(
-                        androidx.compose.material3.LocalContentColor provides colors.textPrimary
+                    CompositionLocalProvider(
+                        LocalContentColor provides colors.textPrimary
                     ) {
                         navigationIcon()
                     }
@@ -352,11 +356,11 @@ fun VetraCenterTopAppBar(
 
             // Center - Title
             Box(contentAlignment = Alignment.Center) {
-                androidx.compose.runtime.CompositionLocalProvider(
-                    androidx.compose.material3.LocalContentColor provides colors.textPrimary
+                CompositionLocalProvider(
+                    LocalContentColor provides colors.textPrimary
                 ) {
-                    androidx.compose.runtime.CompositionLocalProvider(
-                        androidx.compose.material3.LocalTextStyle provides typography.headingSm
+                    CompositionLocalProvider(
+                        LocalTextStyle provides typography.headingSm
                     ) {
                         title()
                     }
@@ -372,8 +376,8 @@ fun VetraCenterTopAppBar(
                     horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    androidx.compose.runtime.CompositionLocalProvider(
-                        androidx.compose.material3.LocalContentColor provides colors.textSecondary
+                    CompositionLocalProvider(
+                        LocalContentColor provides colors.textSecondary
                     ) {
                         actions()
                     }

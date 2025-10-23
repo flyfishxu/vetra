@@ -26,13 +26,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.components.VetraButton
-import com.flyfishxu.vetraui.core.components.VetraCard
-import com.flyfishxu.vetraui.core.components.VetraCheckboxWithLabel
-import com.flyfishxu.vetraui.core.components.VetraOutlinedButton
-import com.flyfishxu.vetraui.core.components.VetraRadioGroup
-import com.flyfishxu.vetraui.core.components.VetraSwitchWithLabel
-import com.flyfishxu.vetraui.core.components.VetraTextField
+import com.flyfishxu.vetraui.core.VetraButton
+import com.flyfishxu.vetraui.core.VetraCard
+import com.flyfishxu.vetraui.core.VetraCheckboxWithLabel
+import com.flyfishxu.vetraui.core.VetraOutlinedButton
+import com.flyfishxu.vetraui.core.VetraRadioGroup
+import com.flyfishxu.vetraui.core.VetraSwitchWithLabel
+import com.flyfishxu.vetraui.core.VetraTextField
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 
 @Composable

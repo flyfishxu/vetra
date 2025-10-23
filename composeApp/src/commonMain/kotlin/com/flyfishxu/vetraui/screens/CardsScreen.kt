@@ -25,11 +25,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.components.VetraBrandCard
-import com.flyfishxu.vetraui.core.components.VetraCard
-import com.flyfishxu.vetraui.core.components.VetraElevatedCard
-import com.flyfishxu.vetraui.core.components.VetraFlatCard
-import com.flyfishxu.vetraui.core.components.VetraOutlinedCard
+import com.flyfishxu.vetraui.core.VetraBrandCard
+import com.flyfishxu.vetraui.core.VetraCard
+import com.flyfishxu.vetraui.core.VetraElevatedCard
+import com.flyfishxu.vetraui.core.VetraFlatCard
+import com.flyfishxu.vetraui.core.VetraOutlinedCard
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 
 @Composable

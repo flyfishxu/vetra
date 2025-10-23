@@ -1,4 +1,4 @@
-package com.flyfishxu.vetraui.core.components
+package com.flyfishxu.vetraui.core
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -173,7 +174,7 @@ fun VetraSwitchWithLabel(
             enabled = enabled
         )
 
-        androidx.compose.material3.Text(
+        Text(
             text = label,
             style = typography.bodyMd.copy(
                 color = if (enabled) colors.textPrimary else colors.textDisabled
@@ -198,7 +199,7 @@ private fun VetraSwitchPreview() {
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            androidx.compose.material3.Text(
+            Text(
                 "Switch States",
                 style = VetraTheme.typography.headingSm.copy(color = VetraTheme.colors.textPrimary)
             )
@@ -214,7 +215,7 @@ private fun VetraSwitchPreview() {
                 )
             }
 
-            androidx.compose.material3.Text(
+            Text(
                 "Disabled States",
                 style = VetraTheme.typography.headingSm.copy(color = VetraTheme.colors.textPrimary)
             )
@@ -234,7 +235,7 @@ private fun VetraSwitchPreview() {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            androidx.compose.material3.Text(
+            Text(
                 "With Labels",
                 style = VetraTheme.typography.headingSm.copy(color = VetraTheme.colors.textPrimary)
             )
