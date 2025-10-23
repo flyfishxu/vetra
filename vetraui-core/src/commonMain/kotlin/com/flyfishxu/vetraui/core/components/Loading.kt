@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.theme.VetraTheme
@@ -180,7 +181,11 @@ fun VetraLoadingDots(
 
             Box(
                 modifier = Modifier
-                    .size(dotSize * scale)
+                    .size(dotSize * 1.2f) // Fixed size for layout
+                    .graphicsLayer {
+                        scaleX = scale / 1.2f
+                        scaleY = scale / 1.2f
+                    }
                     .background(color, CircleShape)
             )
         }
@@ -247,11 +252,13 @@ fun VetraLoadingPulse(
 
             Box(
                 modifier = Modifier
-                    .size(pulseSize * scale)
-                    .background(
-                        color.copy(alpha = alpha),
-                        CircleShape
-                    )
+                    .size(pulseSize) // Fixed size for layout
+                    .graphicsLayer {
+                        scaleX = scale
+                        scaleY = scale
+                        this.alpha = alpha
+                    }
+                    .background(color, CircleShape)
             )
         }
 

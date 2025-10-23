@@ -197,7 +197,7 @@ fun RowScope.VetraNavigationBarItem(
         Box(
             modifier = Modifier
                 .size(
-                    width = NavigationItemSize * 1.3f,
+                    width = NavigationItemSize * 1.8f,
                     height = NavigationItemSize * 1.5f
                 )
                 .alpha(indicatorAlpha)
