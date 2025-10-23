@@ -152,10 +152,11 @@ Soft, natural shadows that create comfortable visual hierarchy:
 ### Shadow Philosophy
 
 Unlike Material's heavy shadows, Vetra uses:
-- Wider blur radius for softer appearance
-- Subtle color tinting for warmth
-- Layered approach for realistic lighting
-- Alpha values: ambient 4%, spot 8%
+- Balanced blur radius (1.2× elevation) for natural appearance
+- Subtle transparency for elegant, lightweight feel
+- Natural lighting model mimicking light from above
+- Refined alpha values: ambient 6%, spot 10%
+- Shadows that are visible yet never overwhelming
 
 ---
 

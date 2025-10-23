@@ -2,15 +2,26 @@ package com.flyfishxu.vetraui.core
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.Ease
 import androidx.compose.animation.core.EaseIn
 import androidx.compose.animation.core.EaseOut
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.Transition
+import androidx.compose.animation.core.animateDp
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.rememberTransition
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.hoverable
@@ -37,6 +48,8 @@ import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,7 +58,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.CompositingStrategy
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -61,6 +78,9 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * A refined dropdown menu system with smooth animations and elegant styling.
  * Designed to feel lightweight and natural, with careful attention to timing and easing.
  */
+
+// CompositionLocal for menu dismiss callback
+private val LocalMenuDismiss = compositionLocalOf<(() -> Unit)?> { null }
 
 // Constants
 private val MenuMinWidth = 180.dp
@@ -100,7 +120,10 @@ fun VetraDropdownMenu(
     val shapes = VetraTheme.shapes
     val shadows = VetraTheme.shadows
 
-    if (expanded) {
+    val expandedState = remember { MutableTransitionState(false) }
+    expandedState.targetState = expanded
+
+    if (expandedState.currentState || expandedState.targetState) {
         Popup(
             onDismissRequest = onDismissRequest,
             offset = offset,
@@ -110,39 +133,55 @@ fun VetraDropdownMenu(
                 dismissOnClickOutside = true
             )
         ) {
-            // Animated appearance
-            AnimatedVisibility(
-                visible = expanded,
-                enter = fadeIn(
-                    animationSpec = tween(
-                        durationMillis = MenuAnimationDuration,
-                        easing = EaseOut
-                    )
-                ) + expandVertically(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioMediumBouncy,
-                        stiffness = Spring.StiffnessMedium
-                    ),
-                    expandFrom = Alignment.Top
-                ),
-                exit = fadeOut(
-                    animationSpec = tween(
-                        durationMillis = MenuAnimationDuration / 2,
-                        easing = EaseIn
-                    )
-                ) + shrinkVertically(
-                    animationSpec = tween(
-                        durationMillis = MenuAnimationDuration / 2,
-                        easing = EaseIn
-                    ),
-                    shrinkTowards = Alignment.Top
-                )
-            ) {
+            val transition = rememberTransition(expandedState, label = "VetraDropdownMenu")
+            val duration = 200
+
+            // Animate effects
+            val alpha by transition.animateFloat(
+                transitionSpec = {
+                    if (false isTransitioningTo true) {
+                        tween(durationMillis = duration, easing = LinearOutSlowInEasing)
+                    } else {
+                        tween(durationMillis = duration, easing = FastOutSlowInEasing)
+                    }
+                },
+                label = "alpha"
+            ) { state -> if (state) 1f else 0f }
+
+            val scale by transition.animateFloat(
+                transitionSpec = {
+                    if (false isTransitioningTo true) {
+                        tween(durationMillis = duration, easing = FastOutSlowInEasing)
+                    } else {
+                        tween(durationMillis = duration, easing = FastOutSlowInEasing)
+                    }
+                },
+                label = "scale"
+            ) { state -> if (state) 1f else 0.98f }
+
+            val elevationDp by transition.animateDp(
+                transitionSpec = {
+                    tween(durationMillis = duration, easing = FastOutSlowInEasing)
+                },
+                label = "shadowElevation"
+            ) { state -> if (state) shadows.md else 0.dp }
+
+            val density = LocalDensity.current
+            val shadowElevationPx = with(density) { elevationDp.toPx() }
+
+            CompositionLocalProvider(LocalMenuDismiss provides onDismissRequest) {
                 Column(
                     modifier = modifier
                         .widthIn(min = MenuMinWidth, max = MenuMaxWidth)
-                        .vetraShadow(elevation = shadows.lg, shape = shapes.md)
-                        .clip(shapes.md)
+                        .graphicsLayer {
+                            shadowElevation = shadowElevationPx
+                            shape = shapes.md
+                            clip = true
+                            this.alpha = alpha
+                            this.scaleX = scale
+                            this.scaleY = scale
+                            transformOrigin = TransformOrigin(0.5f, 0f)
+                        }
                         .background(colors.canvasElevated)
                         .padding(vertical = MenuPadding),
                     content = content
@@ -164,6 +203,7 @@ fun VetraDropdownMenu(
  * @param trailingIcon Optional icon to display after the text
  * @param enabled Whether the item is enabled
  * @param contentColor Color for the text and icons
+ * @param dismissOnClick Whether to automatically dismiss the menu when clicked (default: true)
  */
 @Composable
 fun VetraMenuItem(
@@ -173,13 +213,17 @@ fun VetraMenuItem(
     leadingIcon: ImageVector? = null,
     trailingIcon: ImageVector? = null,
     enabled: Boolean = true,
-    contentColor: Color = VetraTheme.colors.textPrimary
+    contentColor: Color = VetraTheme.colors.textPrimary,
+    dismissOnClick: Boolean = true
 ) {
     val colors = VetraTheme.colors
     val typography = VetraTheme.typography
     val shapes = VetraTheme.shapes
 
     val finalContentColor = if (enabled) contentColor else colors.textDisabled
+    
+    // Get dismiss callback from CompositionLocal
+    val dismissMenu = LocalMenuDismiss.current
 
     // Hover state for desktop
     val interactionSource = remember { MutableInteractionSource() }
@@ -204,7 +248,12 @@ fun VetraMenuItem(
             .background(backgroundColor)
             .hoverable(interactionSource = interactionSource)
             .clickable(
-                onClick = onClick,
+                onClick = {
+                    onClick()
+                    if (dismissOnClick) {
+                        dismissMenu?.invoke()
+                    }
+                },
                 enabled = enabled,
                 role = Role.DropdownList,
                 interactionSource = interactionSource,

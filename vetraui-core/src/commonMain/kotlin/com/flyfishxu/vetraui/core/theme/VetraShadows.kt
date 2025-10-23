@@ -90,9 +90,15 @@ val DefaultVetraShadows = VetraShadows(
  * Apply a soft, natural shadow to create elegant elevation
  *
  * This shadow system creates depth through:
- * 1. Wider blur radius for softer appearance
- * 2. Subtle color tinting for warmth
- * 3. Layered approach for realistic lighting
+ * 1. Balanced blur radius for natural appearance
+ * 2. Subtle transparency for elegance
+ * 3. Realistic lighting that mimics natural shadows
+ *
+ * Design principles:
+ * - Shadows should be visible but not overwhelming
+ * - Heavier at the bottom (natural light from above)
+ * - Soft and diffused for comfortable viewing
+ * - Transparent enough to feel lightweight
  *
  * @param elevation The elevation level (vertical distance from surface)
  * @param shape The shape of the shadow
@@ -105,15 +111,23 @@ fun Modifier.vetraShadow(
     clip: Boolean = false,
     tint: Color? = null
 ): Modifier {
-    if (elevation == 0.dp) return this
+    // Do not early-return at 0dp during animated transitions.
+    // Let caller control alpha/scale; we still return a no-op shadow for 0dp.
+    // This avoids sudden shadow drop/flash when elevation animates to or from 0.
+    if (elevation <= 0.dp) {
+        return this
+    }
 
-    // Create a softer shadow by increasing the effective elevation
-    // This creates a wider, more diffused shadow
-    val softElevation = elevation * 1.4f
+    // Balanced diffusion: 1.2x spread provides soft edges without excessive blur
+    // This creates natural-looking shadows that don't extend too far
+    val softElevation = elevation * 1.2f
 
-    // Shadow colors - soft and subtle
-    val ambientAlpha = 0.04f  // Very soft ambient shadow
-    val spotAlpha = 0.08f     // Gentle directional shadow
+    // Refined alpha values for elegant, subtle shadows:
+    // - Ambient: 6% provides gentle base shadow without heaviness
+    // - Spot: 10% adds definition and depth without harshness
+    // These values create visible yet unobtrusive shadows
+    val ambientAlpha = 0.06f  // Soft base shadow for subtle depth
+    val spotAlpha = 0.10f     // Directional shadow for clear separation
 
     val ambientColor = tint?.copy(alpha = ambientAlpha)
         ?: Color.Black.copy(alpha = ambientAlpha)

@@ -2,12 +2,12 @@
 
 ## Overview
 
-Vetra UI features a refined soft shadow system designed for wider spread, enhanced visibility, and comfortable visual experience:
+Vetra UI features a refined soft shadow system designed for natural appearance, elegant subtlety, and comfortable visual experience:
 
-- **Wider Diffusion**: 1.5× spread radius for enhanced depth perception
-- **Strong Visibility**: Optimized alpha values (15% ambient, 25% spot) for clear depth hierarchy
-- **Clear Hierarchy**: Prominent shadows that create obvious visual separation
-- **Reduced Eye Strain**: Soft diffusion eliminates harsh shadow edges
+- **Balanced Diffusion**: 1.2× spread radius for natural depth without excessive blur
+- **Subtle Elegance**: Refined alpha values (6% ambient, 10% spot) for gentle, unobtrusive shadows
+- **Natural Hierarchy**: Visible shadows that create clear separation without being heavy
+- **Comfortable Viewing**: Soft, transparent shadows that feel lightweight and elegant
 
 ## Elevation Levels
 
@@ -106,21 +106,29 @@ VetraNavigationBar() {
 
 1. **Consistency**: Predefined levels ensure uniform visual hierarchy
 2. **Progressive Scale**: Gradual elevation growth from xs to xxl (1dp to 24dp)
-3. **Visibility**: Enhanced alpha values ensure clear depth perception
-4. **Elegance**: Soft shadows that are visible yet refined
-5. **Comfort**: Diffused shadows reduce eye strain
-6. **Clarity**: Clear depth hierarchy aids spatial understanding
+3. **Subtlety**: Refined alpha values create gentle, unobtrusive shadows
+4. **Elegance**: Shadows are visible yet lightweight, never heavy or harsh
+5. **Comfort**: Soft diffusion and low opacity reduce eye strain
+6. **Natural Feel**: Mimics real-world lighting with heavier shadows below
+7. **Balance**: Clear depth perception without overwhelming the interface
 
 ## Technical Implementation
 
 Soft shadows are implemented through:
 
-1. **Diffusion Coefficient**: Actual spread = elevation × 1.5
-2. **Enhanced Color Configuration**:
-   - Ambient shadow: Black @ 15% alpha (enhanced base shadow for clear visibility)
-   - Spot shadow: Black @ 25% alpha (strong directional shadow for depth hierarchy)
-3. **Cross-Platform**: Uses Compose's built-in shadow API for Android, iOS, and Desktop compatibility
-4. **Performance**: Optimized rendering with conditional shadow application (0dp = no shadow)
+1. **Diffusion Coefficient**: Actual spread = elevation × 1.2
+   - Provides soft edges without extending too far
+   - Creates natural-looking shadows that don't overwhelm content
+2. **Refined Color Configuration**:
+   - Ambient shadow: Black @ 6% alpha (soft base shadow for subtle depth)
+   - Spot shadow: Black @ 10% alpha (directional shadow for clear separation)
+   - These values create visible yet elegant shadows
+3. **Natural Lighting Model**:
+   - Mimics light source from above
+   - Heavier shadows at the bottom for realism
+   - Soft diffusion for comfortable viewing
+4. **Cross-Platform**: Uses Compose's built-in shadow API for Android, iOS, and Desktop compatibility
+5. **Performance**: Optimized rendering with conditional shadow application (0dp = no shadow)
 
 ## Migration Guide
 
