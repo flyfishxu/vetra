@@ -315,6 +315,12 @@ fun VetraRangeSlider(
     var isDraggingStart by remember { mutableStateOf(false) }
     var isDraggingEnd by remember { mutableStateOf(false) }
     var sliderSize by remember { mutableStateOf(IntSize.Zero) }
+    
+    // Track initial position and drag offset for each thumb
+    var startInitialPosition by remember { mutableStateOf(0f) }
+    var startDragOffset by remember { mutableStateOf(0f) }
+    var endInitialPosition by remember { mutableStateOf(0f) }
+    var endDragOffset by remember { mutableStateOf(0f) }
 
     val startThumbSize by animateDpAsState(
         targetValue = if (isDraggingStart && enabled) ThumbHoverSize else ThumbSize,
@@ -451,6 +457,8 @@ fun VetraRangeSlider(
                         detectDragGestures(
                             onDragStart = {
                                 isDraggingStart = true
+                                startInitialPosition = sliderSize.width * normalizedStart
+                                startDragOffset = 0f
                             },
                             onDragEnd = {
                                 isDraggingStart = false
@@ -460,10 +468,11 @@ fun VetraRangeSlider(
                                 isDraggingStart = false
                                 onValuesChangeFinished?.invoke()
                             },
-                            onDrag = { change, _ ->
+                            onDrag = { change, dragAmount ->
                                 change.consume()
-                                val thumbHalfSizePx = (startThumbSize / 2).toPx()
-                                handleDrag(sliderSize.width * normalizedStart - thumbHalfSizePx + change.position.x, true)
+                                startDragOffset += dragAmount.x
+                                val newPositionPx = startInitialPosition + startDragOffset
+                                handleDrag(newPositionPx, true)
                             }
                         )
                     }
@@ -502,6 +511,8 @@ fun VetraRangeSlider(
                         detectDragGestures(
                             onDragStart = {
                                 isDraggingEnd = true
+                                endInitialPosition = sliderSize.width * normalizedEnd
+                                endDragOffset = 0f
                             },
                             onDragEnd = {
                                 isDraggingEnd = false
@@ -511,10 +522,11 @@ fun VetraRangeSlider(
                                 isDraggingEnd = false
                                 onValuesChangeFinished?.invoke()
                             },
-                            onDrag = { change, _ ->
+                            onDrag = { change, dragAmount ->
                                 change.consume()
-                                val thumbHalfSizePx = (endThumbSize / 2).toPx()
-                                handleDrag(sliderSize.width * normalizedEnd - thumbHalfSizePx + change.position.x, false)
+                                endDragOffset += dragAmount.x
+                                val newPositionPx = endInitialPosition + endDragOffset
+                                handleDrag(newPositionPx, false)
                             }
                         )
                     }
