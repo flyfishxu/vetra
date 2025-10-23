@@ -118,7 +118,7 @@ fun SlidersScreen() {
                         value = sliderValue4,
                         onValueChange = { sliderValue4 = it },
                         label = "Rating",
-                        valueRange = 0f..5f,
+                        valueRange = 1f..5f,
                         steps = 3,
                         valueFormatter = { "⭐".repeat(it.toInt()) }
                     )

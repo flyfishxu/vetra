@@ -3,6 +3,7 @@ package com.flyfishxu.vetraui.core.components
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -80,12 +81,25 @@ fun VetraSlider(
         label = "thumbSize"
     )
 
-    val normalizedValue = ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start))
-        .coerceIn(0f, 1f)
+    // Calculate normalized value and snap to step if discrete
+    val normalizedValue = remember(value, valueRange, steps) {
+        val rawNormalized = ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start))
+            .coerceIn(0f, 1f)
+        
+        if (steps > 0) {
+            // Snap to nearest step for discrete slider
+            val stepSize = 1f / (steps + 1)
+            val nearestStep = round(rawNormalized / stepSize).toInt()
+            (nearestStep * stepSize).coerceIn(0f, 1f)
+        } else {
+            rawNormalized
+        }
+    }
 
     val trackColor = if (enabled) colors.borderSubtle else colors.canvasSubtle
     val activeTrackColor = if (enabled) colors.brand else colors.brandDisabled
     val thumbColor = if (enabled) colors.canvasElevated else colors.canvasSubtle
+    val thumbBorderColor = if (enabled) colors.border else colors.borderSubtle
     val thumbShadow = if (enabled) shadows.md else shadows.none
 
     Box(
@@ -178,21 +192,24 @@ fun VetraSlider(
 
         // Thumb
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = thumbSize / 2),
+            modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
             Box(
                 modifier = Modifier
                     .absoluteOffset(
                         x = with(density) {
-                            (sliderSize.width.toDp() - thumbSize) * normalizedValue
+                            sliderSize.width.toDp() * normalizedValue - thumbSize / 2
                         }
                     )
                     .size(thumbSize)
                     .vetraShadow(
                         elevation = thumbShadow,
+                        shape = CircleShape
+                    )
+                    .border(
+                        width = 0.8.dp,
+                        color = thumbBorderColor,
                         shape = CircleShape
                     )
                     .background(
@@ -313,14 +330,37 @@ fun VetraRangeSlider(
         label = "endThumbSize"
     )
 
-    val normalizedStart = ((values.start - valueRange.start) / (valueRange.endInclusive - valueRange.start))
-        .coerceIn(0f, 1f)
-    val normalizedEnd = ((values.endInclusive - valueRange.start) / (valueRange.endInclusive - valueRange.start))
-        .coerceIn(0f, 1f)
+    // Calculate normalized values and snap to steps if discrete
+    val normalizedStart = remember(values.start, valueRange, steps) {
+        val rawNormalized = ((values.start - valueRange.start) / (valueRange.endInclusive - valueRange.start))
+            .coerceIn(0f, 1f)
+        
+        if (steps > 0) {
+            val stepSize = 1f / (steps + 1)
+            val nearestStep = round(rawNormalized / stepSize).toInt()
+            (nearestStep * stepSize).coerceIn(0f, 1f)
+        } else {
+            rawNormalized
+        }
+    }
+    
+    val normalizedEnd = remember(values.endInclusive, valueRange, steps) {
+        val rawNormalized = ((values.endInclusive - valueRange.start) / (valueRange.endInclusive - valueRange.start))
+            .coerceIn(0f, 1f)
+        
+        if (steps > 0) {
+            val stepSize = 1f / (steps + 1)
+            val nearestStep = round(rawNormalized / stepSize).toInt()
+            (nearestStep * stepSize).coerceIn(0f, 1f)
+        } else {
+            rawNormalized
+        }
+    }
 
     val trackColor = if (enabled) colors.borderSubtle else colors.canvasSubtle
     val activeTrackColor = if (enabled) colors.brand else colors.brandDisabled
     val thumbColor = if (enabled) colors.canvasElevated else colors.canvasSubtle
+    val thumbBorderColor = if (enabled) colors.border else colors.borderSubtle
     val thumbShadow = if (enabled) shadows.md else shadows.none
 
     fun handleDrag(positionX: Float, isStartThumb: Boolean) {
@@ -383,21 +423,24 @@ fun VetraRangeSlider(
 
         // Start Thumb
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = startThumbSize / 2),
+            modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
             Box(
                 modifier = Modifier
                     .absoluteOffset(
                         x = with(density) {
-                            (sliderSize.width.toDp() - startThumbSize) * normalizedStart
+                            sliderSize.width.toDp() * normalizedStart - startThumbSize / 2
                         }
                     )
                     .size(startThumbSize)
                     .vetraShadow(
                         elevation = thumbShadow,
+                        shape = CircleShape
+                    )
+                    .border(
+                        width = 0.8.dp,
+                        color = thumbBorderColor,
                         shape = CircleShape
                     )
                     .background(
@@ -421,7 +464,8 @@ fun VetraRangeSlider(
                             },
                             onDrag = { change, _ ->
                                 change.consume()
-                                handleDrag(change.position.x + (sliderSize.width * normalizedStart), true)
+                                val thumbHalfSizePx = (startThumbSize / 2).toPx()
+                                handleDrag(sliderSize.width * normalizedStart - thumbHalfSizePx + change.position.x, true)
                             }
                         )
                     }
@@ -430,21 +474,24 @@ fun VetraRangeSlider(
 
         // End Thumb
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = endThumbSize / 2),
+            modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
             Box(
                 modifier = Modifier
                     .absoluteOffset(
                         x = with(density) {
-                            (sliderSize.width.toDp() - endThumbSize) * normalizedEnd
+                            sliderSize.width.toDp() * normalizedEnd - endThumbSize / 2
                         }
                     )
                     .size(endThumbSize)
                     .vetraShadow(
                         elevation = thumbShadow,
+                        shape = CircleShape
+                    )
+                    .border(
+                        width = 0.8.dp,
+                        color = thumbBorderColor,
                         shape = CircleShape
                     )
                     .background(
@@ -468,7 +515,8 @@ fun VetraRangeSlider(
                             },
                             onDrag = { change, _ ->
                                 change.consume()
-                                handleDrag(change.position.x + (sliderSize.width * normalizedEnd), false)
+                                val thumbHalfSizePx = (endThumbSize / 2).toPx()
+                                handleDrag(sliderSize.width * normalizedEnd - thumbHalfSizePx + change.position.x, false)
                             }
                         )
                     }

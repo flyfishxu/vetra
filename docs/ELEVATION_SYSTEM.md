@@ -2,36 +2,38 @@
 
 ## Overview
 
-Vetra UI features a refined soft shadow system designed for wider spread, softer gradients, and comfortable visual experience:
+Vetra UI features a refined soft shadow system designed for wider spread, enhanced visibility, and comfortable visual experience:
 
 - **Wider Diffusion**: 1.5× spread radius for enhanced depth perception
-- **Softer Gradients**: Lower alpha values for natural transitions
-- **Reduced Eye Strain**: Eliminates harsh shadow edges
+- **Strong Visibility**: Optimized alpha values (15% ambient, 25% spot) for clear depth hierarchy
+- **Clear Hierarchy**: Prominent shadows that create obvious visual separation
+- **Reduced Eye Strain**: Soft diffusion eliminates harsh shadow edges
 
 ## Elevation Levels
 
-Six standard elevation levels:
+Seven standard elevation levels:
 
 ```kotlin
-VetraElevation.Level0 = 0.dp   // No elevation - flat elements
-VetraElevation.Level1 = 3.dp   // Subtle - cards, containers
-VetraElevation.Level2 = 6.dp   // Light - raised buttons, floating elements
-VetraElevation.Level3 = 10.dp  // Medium - dialogs, emphasis components
-VetraElevation.Level4 = 16.dp  // High - navigation drawers, major overlays
-VetraElevation.Level5 = 24.dp  // Maximum - modal dialogs, critical overlays
+VetraShadows.none = 0.dp   // No elevation - flat elements
+VetraShadows.xs = 1.dp     // Barely perceptible - hovering elements
+VetraShadows.sm = 2.dp     // Light - cards, contained buttons
+VetraShadows.md = 4.dp     // Moderate - raised buttons, slider thumbs
+VetraShadows.lg = 8.dp     // Strong - dropdowns, tooltips
+VetraShadows.xl = 16.dp    // Maximum - dialogs, navigation drawers
+VetraShadows.xxl = 24.dp   // Dramatic - modals, critical alerts
 ```
 
 ## Usage
 
 ### Basic Usage
 
-Apply soft shadows with the `softShadow` modifier:
+Apply soft shadows with the `vetraShadow` modifier:
 
 ```kotlin
 Box(
     modifier = Modifier
-        .softShadow(
-            elevation = VetraElevation.Level2,
+        .vetraShadow(
+            elevation = VetraTheme.shadows.md,
             shape = RoundedCornerShape(16.dp)
         )
 ) {
@@ -44,19 +46,19 @@ Box(
 Customize shadow appearance:
 
 ```kotlin
-Modifier.softShadow(
-    elevation = VetraElevation.Level3,
-    shape = MaterialTheme.shapes.large,
+Modifier.vetraShadow(
+    elevation = VetraTheme.shadows.lg,
+    shape = VetraTheme.shapes.md,
     clip = false,
-    ambientColor = Color.Black.copy(alpha = 0.08f)
+    tint = Color.Blue  // Optional colored shadow
 )
 ```
 
 **Parameters:**
-- `elevation`: Shadow height
+- `elevation`: Shadow height (Dp value)
 - `shape`: Shadow shape (should match element shape)
 - `clip`: Clip content to shape (default: false)
-- `ambientColor`: Ambient shadow color (default: Black @ 8% alpha)
+- `tint`: Optional tint color for the shadow (default: black)
 
 ## Component Usage Examples
 
@@ -64,27 +66,31 @@ Modifier.softShadow(
 
 ```kotlin
 VetraCard() {
-    // Uses Level1 elevation by default
+    // Uses shadows.sm elevation by default
 }
 
 VetraElevatedCard() {
-    // Uses Level2 elevation for stronger emphasis
+    // Uses shadows.md elevation for stronger emphasis
 }
 ```
 
 ### Buttons
 
 ```kotlin
-VetraPrimaryButton() {
-    // Uses Level2 elevation for prominent primary actions
+VetraButton() {
+    // Uses shadows.sm elevation for primary actions
 }
 
-VetraFilledTonalButton() {
-    // Uses Level1 elevation for secondary actions
+VetraSecondaryButton() {
+    // Uses shadows.sm elevation for secondary actions
 }
+```
 
-VetraElevatedButton() {
-    // Uses Level3 elevation for maximum prominence
+### Sliders
+
+```kotlin
+VetraSlider() {
+    // Thumb uses shadows.md elevation for clear separation from track
 }
 ```
 
@@ -92,26 +98,29 @@ VetraElevatedButton() {
 
 ```kotlin
 VetraNavigationBar() {
-    // Uses Level3 elevation to float above content
+    // Uses elevated shadow to float above content
 }
 ```
 
 ## Design Principles
 
 1. **Consistency**: Predefined levels ensure uniform visual hierarchy
-2. **Progressive Scale**: Gradual elevation growth from Level1 to Level5
-3. **Comfort**: Soft shadows reduce eye strain
-4. **Clarity**: Clear depth hierarchy aids spatial understanding
+2. **Progressive Scale**: Gradual elevation growth from xs to xxl (1dp to 24dp)
+3. **Visibility**: Enhanced alpha values ensure clear depth perception
+4. **Elegance**: Soft shadows that are visible yet refined
+5. **Comfort**: Diffused shadows reduce eye strain
+6. **Clarity**: Clear depth hierarchy aids spatial understanding
 
 ## Technical Implementation
 
 Soft shadows are implemented through:
 
 1. **Diffusion Coefficient**: Actual spread = elevation × 1.5
-2. **Color Configuration**:
-   - Ambient shadow: Black @ 8% alpha
-   - Spot shadow: Black @ 12% alpha
+2. **Enhanced Color Configuration**:
+   - Ambient shadow: Black @ 15% alpha (enhanced base shadow for clear visibility)
+   - Spot shadow: Black @ 25% alpha (strong directional shadow for depth hierarchy)
 3. **Cross-Platform**: Uses Compose's built-in shadow API for Android, iOS, and Desktop compatibility
+4. **Performance**: Optimized rendering with conditional shadow application (0dp = no shadow)
 
 ## Migration Guide
 
@@ -123,8 +132,8 @@ Migrating from standard shadow system:
 import androidx.compose.ui.draw.shadow
 
 // New
-import com.flyfishxu.vetraui.core.theme.VetraElevation
-import com.flyfishxu.vetraui.core.theme.softShadow
+import com.flyfishxu.vetraui.core.theme.VetraTheme
+import com.flyfishxu.vetraui.core.theme.vetraShadow
 ```
 
 2. **Replace modifier**:
@@ -133,15 +142,17 @@ import com.flyfishxu.vetraui.core.theme.softShadow
 Modifier.shadow(elevation = 4.dp, shape = shape)
 
 // New
-Modifier.softShadow(elevation = VetraElevation.Level2, shape = shape)
+Modifier.vetraShadow(elevation = VetraTheme.shadows.md, shape = shape)
 ```
 
 3. **Map elevation values**:
-- 1dp → Level1 (3dp)
-- 2-4dp → Level2 (6dp)
-- 6-8dp → Level3 (10dp)
-- 12dp → Level4 (16dp)
-- 16dp+ → Level5 (24dp)
+- 0dp → shadows.none (0dp)
+- 1dp → shadows.xs (1dp)
+- 2-3dp → shadows.sm (2dp)
+- 4-6dp → shadows.md (4dp)
+- 8-12dp → shadows.lg (8dp)
+- 16-20dp → shadows.xl (16dp)
+- 24dp+ → shadows.xxl (24dp)
 
 ---
 
