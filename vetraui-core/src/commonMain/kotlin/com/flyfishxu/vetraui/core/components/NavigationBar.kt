@@ -2,10 +2,12 @@ package com.flyfishxu.vetraui.core.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseInOutCubic
+import androidx.compose.animation.core.EaseOut
 import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -136,7 +138,10 @@ fun RowScope.VetraNavigationBarItem(
     val shapes = VetraTheme.shapes
     val interactionSource = remember { MutableInteractionSource() }
 
-    // Animated colors
+    // Create transition with different animations for enter/exit
+    val transition = updateTransition(targetState = selected, label = "navigationItem")
+
+    // Animated colors (symmetric animations are fine for colors)
     val iconColor by animateColorAsState(
         targetValue = if (selected) colors.brand else colors.textSecondary,
         animationSpec = tween(durationMillis = AnimationDuration, easing = EaseInOutCubic),
@@ -155,29 +160,56 @@ fun RowScope.VetraNavigationBarItem(
         label = "backgroundColor"
     )
 
-    // Animated scale - subtle icon animation only when selected
-    val iconScale by animateFloatAsState(
-        targetValue = if (selected) 1.05f else 1f,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessMedium
-        ),
+    // Icon scale - bouncy when entering (selected), fast when exiting
+    val iconScale by transition.animateFloat(
+        transitionSpec = {
+            if (targetState) {
+                // Entering (becoming selected) - bouncy spring animation
+                spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessMedium
+                )
+            } else {
+                // Exiting (becoming unselected) - quick tween animation
+                tween(durationMillis = 200, easing = EaseOut)
+            }
+        },
         label = "iconScale"
-    )
+    ) { isSelected ->
+        if (isSelected) 1.1f else 1f
+    }
 
-    // Indicator alpha for smooth appearance/disappearance
-    val indicatorAlpha by animateFloatAsState(
-        targetValue = if (selected) 1f else 0f,
-        animationSpec = tween(durationMillis = AnimationDuration, easing = EaseInOutCubic),
+    // Indicator alpha - smooth fade in when entering, quick fade out when exiting
+    val indicatorAlpha by transition.animateFloat(
+        transitionSpec = {
+            if (targetState) {
+                // Entering - smooth fade in
+                tween(durationMillis = 300, easing = EaseInOutCubic)
+            } else {
+                // Exiting - quick fade out
+                tween(durationMillis = 150, easing = EaseOut)
+            }
+        },
         label = "indicatorAlpha"
-    )
+    ) { isSelected ->
+        if (isSelected) 1f else 0f
+    }
 
-    // Label animation
-    val labelAlpha by animateFloatAsState(
-        targetValue = if (selected) 1f else 0.7f,
-        animationSpec = tween(durationMillis = AnimationDuration),
+    // Label animation - different timing for enter/exit
+    val labelAlpha by transition.animateFloat(
+        transitionSpec = {
+            if (targetState) {
+                // Entering - slower fade in
+                tween(durationMillis = 300, delayMillis = 50)
+            } else {
+                // Exiting - quick fade
+                tween(durationMillis = 150)
+            }
+        },
         label = "labelAlpha"
-    )
+    ) { isSelected ->
+        if (isSelected) 1f else 0.7f
+    }
 
     Box(
         modifier = modifier
