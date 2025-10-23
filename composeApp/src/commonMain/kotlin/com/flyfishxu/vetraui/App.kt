@@ -21,6 +21,8 @@ import androidx.compose.material.icons.filled.HourglassBottom
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.TouchApp
+import androidx.compose.material.icons.filled.Tune
+import androidx.compose.material.icons.filled.ViewModule
 import androidx.compose.material.icons.outlined.Accessibility
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Brightness4
@@ -34,6 +36,8 @@ import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Palette
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.TouchApp
+import androidx.compose.material.icons.outlined.Tune
+import androidx.compose.material.icons.outlined.ViewModule
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -53,11 +57,7 @@ import com.flyfishxu.vetraui.core.components.VetraNavigationBarItem
 import com.flyfishxu.vetraui.core.components.VetraOutlinedCard
 import com.flyfishxu.vetraui.core.components.VetraTopAppBar
 import com.flyfishxu.vetraui.core.theme.VetraTheme
-import com.flyfishxu.vetraui.screens.ButtonsScreen
-import com.flyfishxu.vetraui.screens.CardsScreen
-import com.flyfishxu.vetraui.screens.InputsScreen
-import com.flyfishxu.vetraui.screens.LoadingScreen
-import com.flyfishxu.vetraui.screens.MenuScreen
+import com.flyfishxu.vetraui.screens.ComponentsGalleryScreen
 import com.flyfishxu.vetraui.screens.SettingsScreen
 import com.flyfishxu.vetraui.theme.ThemeMode
 import com.flyfishxu.vetraui.theme.isSystemInDarkTheme
@@ -72,11 +72,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 enum class AppSection {
     HOME,
-    BUTTONS,
-    CARDS,
-    INPUTS,
-    MENU,
-    LOADING,
+    COMPONENTS,
     SETTINGS
 }
 
@@ -117,11 +113,7 @@ fun App(
                     Text(
                         when (selectedSection) {
                             AppSection.HOME -> "Vetra UI"
-                            AppSection.BUTTONS -> "Buttons"
-                            AppSection.CARDS -> "Cards"
-                            AppSection.INPUTS -> "Inputs"
-                            AppSection.MENU -> "Menus"
-                            AppSection.LOADING -> "Loading"
+                            AppSection.COMPONENTS -> "Components"
                             AppSection.SETTINGS -> "Settings"
                         }
                     )
@@ -158,14 +150,11 @@ fun App(
             Box(modifier = Modifier.weight(1f)) {
                 when (selectedSection) {
                     AppSection.HOME -> HomeScreen(
-                        onNavigate = { selectedSection = it }
+                        onNavigateToComponents = { selectedSection = AppSection.COMPONENTS }
                     )
 
-                    AppSection.BUTTONS -> ButtonsScreen()
-                    AppSection.CARDS -> CardsScreen()
-                    AppSection.INPUTS -> InputsScreen()
-                    AppSection.MENU -> MenuScreen()
-                    AppSection.LOADING -> LoadingScreen()
+                    AppSection.COMPONENTS -> ComponentsGalleryScreen()
+                    
                     AppSection.SETTINGS -> SettingsScreen(
                         themeMode = themeMode,
                         systemInDarkMode = systemInDarkMode,
@@ -185,32 +174,11 @@ fun App(
                     label = "Home"
                 )
                 VetraNavigationBarItem(
-                    selected = selectedSection == AppSection.BUTTONS,
-                    onClick = { selectedSection = AppSection.BUTTONS },
-                    icon = Icons.Outlined.TouchApp,
-                    selectedIcon = Icons.Filled.TouchApp,
-                    label = "Buttons"
-                )
-                VetraNavigationBarItem(
-                    selected = selectedSection == AppSection.CARDS,
-                    onClick = { selectedSection = AppSection.CARDS },
-                    icon = Icons.Outlined.GridView,
-                    selectedIcon = Icons.Filled.GridView,
-                    label = "Cards"
-                )
-                VetraNavigationBarItem(
-                    selected = selectedSection == AppSection.INPUTS,
-                    onClick = { selectedSection = AppSection.INPUTS },
-                    icon = Icons.Outlined.Edit,
-                    selectedIcon = Icons.Filled.Edit,
-                    label = "Inputs"
-                )
-                VetraNavigationBarItem(
-                    selected = selectedSection == AppSection.MENU,
-                    onClick = { selectedSection = AppSection.MENU },
-                    icon = Icons.Outlined.Menu,
-                    selectedIcon = Icons.Filled.Menu,
-                    label = "Menus"
+                    selected = selectedSection == AppSection.COMPONENTS,
+                    onClick = { selectedSection = AppSection.COMPONENTS },
+                    icon = Icons.Outlined.ViewModule,
+                    selectedIcon = Icons.Filled.ViewModule,
+                    label = "Components"
                 )
                 VetraNavigationBarItem(
                     selected = selectedSection == AppSection.SETTINGS,
@@ -225,7 +193,7 @@ fun App(
 }
 
 @Composable
-fun HomeScreen(onNavigate: (AppSection) -> Unit) {
+fun HomeScreen(onNavigateToComponents: () -> Unit) {
     val colors = VetraTheme.colors
     val typography = VetraTheme.typography
 
@@ -250,7 +218,7 @@ fun HomeScreen(onNavigate: (AppSection) -> Unit) {
         item {
             VetraBrandCard(
                 modifier = Modifier.fillMaxWidth(),
-                onClick = { onNavigate(AppSection.BUTTONS) }
+                onClick = onNavigateToComponents
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -259,122 +227,20 @@ fun HomeScreen(onNavigate: (AppSection) -> Unit) {
                 ) {
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
-                            "Button Components",
-                            style = typography.headingMd.copy(color = colors.onBrandSubtle)
+                            "Explore Components",
+                            style = typography.headingLg.copy(color = colors.onBrandSubtle)
                         )
-                        Spacer(modifier = Modifier.height(4.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            "5 variants: Primary, Secondary, Outlined, Ghost, and Danger",
+                            "Browse all UI components: Buttons, Cards, Inputs, Sliders, Menus, and more",
                             style = typography.bodyMd.copy(color = colors.onBrandSubtle)
                         )
                     }
                     Icon(
-                        imageVector = Icons.Filled.TouchApp,
+                        imageVector = Icons.Filled.ViewModule,
                         contentDescription = null,
-                        modifier = Modifier.size(32.dp),
+                        modifier = Modifier.size(48.dp),
                         tint = colors.brand
-                    )
-                }
-            }
-        }
-
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                VetraCard(
-                    modifier = Modifier.weight(1f),
-                    onClick = { onNavigate(AppSection.CARDS) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.GridView,
-                        contentDescription = null,
-                        modifier = Modifier.size(32.dp),
-                        tint = colors.brand
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(
-                        "Cards",
-                        style = typography.headingMd.copy(color = colors.textPrimary)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        "5 card styles",
-                        style = typography.bodySm.copy(color = colors.textSecondary)
-                    )
-                }
-
-                VetraCard(
-                    modifier = Modifier.weight(1f),
-                    onClick = { onNavigate(AppSection.INPUTS) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Edit,
-                        contentDescription = null,
-                        modifier = Modifier.size(32.dp),
-                        tint = colors.accent
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(
-                        "Inputs",
-                        style = typography.headingMd.copy(color = colors.textPrimary)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        "Forms",
-                        style = typography.bodySm.copy(color = colors.textSecondary)
-                    )
-                }
-            }
-        }
-
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                VetraCard(
-                    modifier = Modifier.weight(1f),
-                    onClick = { onNavigate(AppSection.MENU) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Menu,
-                        contentDescription = null,
-                        modifier = Modifier.size(32.dp),
-                        tint = colors.success
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(
-                        "Menus",
-                        style = typography.headingMd.copy(color = colors.textPrimary)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        "Dropdowns",
-                        style = typography.bodySm.copy(color = colors.textSecondary)
-                    )
-                }
-
-                VetraCard(
-                    modifier = Modifier.weight(1f),
-                    onClick = { onNavigate(AppSection.LOADING) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.HourglassBottom,
-                        contentDescription = null,
-                        modifier = Modifier.size(32.dp),
-                        tint = colors.brand
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Text(
-                        "Loading",
-                        style = typography.headingMd.copy(color = colors.textPrimary)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        "Indicators",
-                        style = typography.bodySm.copy(color = colors.textSecondary)
                     )
                 }
             }
