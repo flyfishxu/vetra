@@ -41,27 +41,18 @@ fun CardsScreen() {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
-        item {
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(
-                    "Card Components",
-                    style = typography.displaySm.copy(color = colors.textPrimary)
-                )
-                Text(
-                    "Five card variants for different use cases",
-                    style = typography.bodyLg.copy(color = colors.textSecondary)
-                )
-            }
-        }
-
         // Standard Card
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
                     "Standard Card",
-                    style = typography.headingMd.copy(color = colors.textPrimary)
+                    style = typography.headingLg.copy(color = colors.textPrimary)
+                )
+                Text(
+                    "Soft shadow with subtle border. For most use cases.",
+                    style = typography.bodyMd.copy(color = colors.textSecondary)
                 )
 
                 VetraCard(modifier = Modifier.fillMaxWidth()) {
@@ -73,34 +64,12 @@ fun CardsScreen() {
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        "Default Elevation",
+                        "Card Title",
                         style = typography.headingMd.copy(color = colors.textPrimary)
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        "The standard card with soft shadow elevation. Perfect for most use cases.",
-                        style = typography.bodyMd.copy(color = colors.textSecondary)
-                    )
-                }
-            }
-        }
-
-        // Flat Card
-        item {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(
-                    "Flat Card",
-                    style = typography.headingMd.copy(color = colors.textPrimary)
-                )
-
-                VetraFlatCard(modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        "No Elevation",
-                        style = typography.headingMd.copy(color = colors.textPrimary)
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        "Subtle background color without elevation. Good for nested cards or dense layouts.",
+                        "The default card with soft shadow elevation.",
                         style = typography.bodyMd.copy(color = colors.textSecondary)
                     )
                 }
@@ -109,10 +78,14 @@ fun CardsScreen() {
 
         // Elevated Card
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
                     "Elevated Card",
-                    style = typography.headingMd.copy(color = colors.textPrimary)
+                    style = typography.headingLg.copy(color = colors.textPrimary)
+                )
+                Text(
+                    "Strong shadow, no border. For emphasis.",
+                    style = typography.bodyMd.copy(color = colors.textSecondary)
                 )
 
                 VetraElevatedCard(modifier = Modifier.fillMaxWidth()) {
@@ -123,12 +96,12 @@ fun CardsScreen() {
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                "Higher Elevation",
+                                "Featured Content",
                                 style = typography.headingMd.copy(color = colors.textPrimary)
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                "More prominent shadow for emphasis.",
+                                "Higher elevation for important content.",
                                 style = typography.bodyMd.copy(color = colors.textSecondary)
                             )
                         }
@@ -145,20 +118,50 @@ fun CardsScreen() {
 
         // Outlined Card
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
                     "Outlined Card",
-                    style = typography.headingMd.copy(color = colors.textPrimary)
+                    style = typography.headingLg.copy(color = colors.textPrimary)
+                )
+                Text(
+                    "Border only, no shadow. Minimalist style.",
+                    style = typography.bodyMd.copy(color = colors.textSecondary)
                 )
 
                 VetraOutlinedCard(modifier = Modifier.fillMaxWidth()) {
                     Text(
-                        "Border Style",
+                        "Bordered Card",
                         style = typography.headingMd.copy(color = colors.textPrimary)
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        "Clear boundaries with a border, no shadow. Perfect for minimalist designs.",
+                        "Clear boundaries with visible border.",
+                        style = typography.bodyMd.copy(color = colors.textSecondary)
+                    )
+                }
+            }
+        }
+
+        // Flat Card
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                Text(
+                    "Flat Card",
+                    style = typography.headingLg.copy(color = colors.textPrimary)
+                )
+                Text(
+                    "No shadow or border. Most subtle variant.",
+                    style = typography.bodyMd.copy(color = colors.textSecondary)
+                )
+
+                VetraFlatCard(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        "Flat Design",
+                        style = typography.headingMd.copy(color = colors.textPrimary)
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        "Simple background color only.",
                         style = typography.bodyMd.copy(color = colors.textSecondary)
                     )
                 }
@@ -167,10 +170,14 @@ fun CardsScreen() {
 
         // Brand Card
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
                     "Brand Card",
-                    style = typography.headingMd.copy(color = colors.textPrimary)
+                    style = typography.headingLg.copy(color = colors.textPrimary)
+                )
+                Text(
+                    "Brand color background for special content.",
+                    style = typography.bodyMd.copy(color = colors.textSecondary)
                 )
 
                 VetraBrandCard(modifier = Modifier.fillMaxWidth()) {
@@ -182,12 +189,12 @@ fun CardsScreen() {
                     )
                     Spacer(modifier = Modifier.height(12.dp))
                     Text(
-                        "Brand Accent",
+                        "Special Highlight",
                         style = typography.headingMd.copy(color = colors.onBrandSubtle)
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        "Subtle brand color background for highlighting special content.",
+                        "Draws attention with brand color.",
                         style = typography.bodyMd.copy(color = colors.onBrandSubtle)
                     )
                 }
@@ -196,10 +203,14 @@ fun CardsScreen() {
 
         // Interactive Card
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 Text(
-                    "Interactive Card",
-                    style = typography.headingMd.copy(color = colors.textPrimary)
+                    "Interactive Cards",
+                    style = typography.headingLg.copy(color = colors.textPrimary)
+                )
+                Text(
+                    "All cards can be clickable.",
+                    style = typography.bodyMd.copy(color = colors.textSecondary)
                 )
 
                 VetraCard(
@@ -218,7 +229,7 @@ fun CardsScreen() {
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                "Cards can be interactive. Clicked $clickCount times.",
+                                "Clicked $clickCount times",
                                 style = typography.bodyMd.copy(color = colors.textSecondary)
                             )
                         }

@@ -62,12 +62,16 @@ data class VetraColorScheme(
     val onBrand: Color,
     val brandSubtle: Color,
     val onBrandSubtle: Color,
+    val brandDisabled: Color,          // Desaturated brand for disabled states
+    val onBrandDisabled: Color,        // Content on disabled brand
 
     // Accent Colors
     val accent: Color,
     val onAccent: Color,
     val accentSubtle: Color,
     val onAccentSubtle: Color,
+    val accentDisabled: Color,         // Desaturated accent for disabled states
+    val onAccentDisabled: Color,       // Content on disabled accent
 
     // Canvas/Background Colors
     val canvas: Color,
@@ -95,6 +99,8 @@ data class VetraColorScheme(
     val onWarning: Color,
     val danger: Color,
     val onDanger: Color,
+    val dangerDisabled: Color,         // Desaturated danger for disabled states
+    val onDangerDisabled: Color,       // Content on disabled danger
     val info: Color,
     val onInfo: Color,
 
@@ -112,19 +118,23 @@ val VetraLightColorScheme = VetraColorScheme(
     onBrand = Color(0xFFFFFFFF),
     brandSubtle = Color(0xFFEFF6FF),     // Very light blue
     onBrandSubtle = Color(0xFF1E40AF),
+    brandDisabled = Color(0xFFBFDBFE),   // Desaturated blue with good contrast
+    onBrandDisabled = Color(0xFF64748B), // Muted slate for readable text
 
     // Accent Colors - Elegant Purple
     accent = Color(0xFF7C3AED),          // Rich purple for highlights
     onAccent = Color(0xFFFFFFFF),
     accentSubtle = Color(0xFFF5F3FF),    // Very light purple
     onAccentSubtle = Color(0xFF5B21B6),
+    accentDisabled = Color(0xFFDDD6FE),  // Desaturated purple with good contrast
+    onAccentDisabled = Color(0xFF64748B),// Muted slate for readable text
 
-    // Canvas Colors - Neutral Grays
-    canvas = Color(0xFFFAFAFA),          // Soft off-white
+    // Canvas Colors - Neutral Grays (enhanced contrast)
+    canvas = Color(0xFFF8F8F8),          // Slightly darker for better contrast
     onCanvas = Color(0xFF0A0A0A),
     canvasElevated = Color(0xFFFFFFFF),  // Pure white for cards
     onCanvasElevated = Color(0xFF0A0A0A),
-    canvasSubtle = Color(0xFFF5F5F5),    // Subtle gray
+    canvasSubtle = Color(0xFFF0F0F0),    // More distinct from canvas
     onCanvasSubtle = Color(0xFF171717),
 
     // Text Colors
@@ -133,9 +143,9 @@ val VetraLightColorScheme = VetraColorScheme(
     textTertiary = Color(0xFFA3A3A3),    // Light gray
     textDisabled = Color(0xFFD4D4D4),    // Very light gray
 
-    // Border Colors
-    border = Color(0xFFE5E5E5),          // Light gray border
-    borderSubtle = Color(0xFFF5F5F5),    // Very subtle border
+    // Border Colors (enhanced visibility)
+    border = Color(0xFFD6D6D6),          // More visible border
+    borderSubtle = Color(0xFFE8E8E8),    // More distinct subtle border
     borderFocus = Color(0xFF3B82F6),     // Blue focus ring
 
     // Semantic Colors
@@ -145,6 +155,8 @@ val VetraLightColorScheme = VetraColorScheme(
     onWarning = Color(0xFF000000),
     danger = Color(0xFFEF4444),          // Clear red
     onDanger = Color(0xFFFFFFFF),
+    dangerDisabled = Color(0xFFFECDD3),  // Desaturated pink-red with good contrast
+    onDangerDisabled = Color(0xFF64748B),// Muted slate for readable text
     info = Color(0xFF06B6D4),            // Bright cyan
     onInfo = Color(0xFFFFFFFF),
 
@@ -162,19 +174,23 @@ val VetraDarkColorScheme = VetraColorScheme(
     onBrand = Color(0xFFFFFFFF),
     brandSubtle = Color(0xFF1E293B),     // Dark blue-gray
     onBrandSubtle = Color(0xFF60A5FA),
+    brandDisabled = Color(0xFF1E3A5F),   // Desaturated dark blue with good contrast
+    onBrandDisabled = Color(0xFF94A3B8), // Muted light slate
 
     // Accent Colors - Vivid for dark mode
     accent = Color(0xFF8B5CF6),          // Brighter purple
     onAccent = Color(0xFFFFFFFF),
     accentSubtle = Color(0xFF2E1065),    // Dark purple
     onAccentSubtle = Color(0xFFA78BFA),
+    accentDisabled = Color(0xFF3B2463),  // Desaturated dark purple with good contrast
+    onAccentDisabled = Color(0xFF94A3B8),// Muted light slate
 
-    // Canvas Colors - Rich blacks
-    canvas = Color(0xFF0A0A0A),          // Deep black
+    // Canvas Colors - Rich blacks (enhanced contrast)
+    canvas = Color(0xFF0F0F0F),          // Slightly lighter for better contrast
     onCanvas = Color(0xFFFAFAFA),
-    canvasElevated = Color(0xFF171717),  // Elevated black
+    canvasElevated = Color(0xFF1A1A1A),  // More distinct elevation
     onCanvasElevated = Color(0xFFFAFAFA),
-    canvasSubtle = Color(0xFF000000),    // Pure black
+    canvasSubtle = Color(0xFF080808),    // Darker than canvas
     onCanvasSubtle = Color(0xFFE5E5E5),
 
     // Text Colors
@@ -183,9 +199,9 @@ val VetraDarkColorScheme = VetraColorScheme(
     textTertiary = Color(0xFF525252),    // Darker gray
     textDisabled = Color(0xFF404040),    // Very dark gray
 
-    // Border Colors
-    border = Color(0xFF262626),          // Dark gray border
-    borderSubtle = Color(0xFF171717),    // Very subtle border
+    // Border Colors (enhanced visibility)
+    border = Color(0xFF2E2E2E),          // More visible border
+    borderSubtle = Color(0xFF242424),    // More distinct subtle border
     borderFocus = Color(0xFF60A5FA),     // Brighter blue focus ring
 
     // Semantic Colors - Adjusted for dark mode
@@ -195,6 +211,8 @@ val VetraDarkColorScheme = VetraColorScheme(
     onWarning = Color(0xFF000000),
     danger = Color(0xFFF87171),          // Softer red
     onDanger = Color(0xFF000000),
+    dangerDisabled = Color(0xFF4C2020),  // Desaturated dark red with good contrast
+    onDangerDisabled = Color(0xFF94A3B8),// Muted light slate
     info = Color(0xFF22D3EE),            // Brighter cyan
     onInfo = Color(0xFF000000),
 

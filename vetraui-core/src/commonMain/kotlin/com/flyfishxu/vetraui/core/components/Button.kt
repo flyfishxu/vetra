@@ -75,8 +75,8 @@ fun VetraButton(
     val shadows = VetraTheme.shadows
     val interactionSource = remember { MutableInteractionSource() }
 
-    val backgroundColor = if (enabled) colors.brand else colors.canvasSubtle
-    val contentColor = if (enabled) colors.onBrand else colors.textDisabled
+    val backgroundColor = if (enabled) colors.brand else colors.brandDisabled
+    val contentColor = if (enabled) colors.onBrand else colors.onBrandDisabled
     val shadow = if (enabled) shadows.sm else shadows.none
 
     Box(
@@ -132,8 +132,8 @@ fun VetraSecondaryButton(
     val shadows = VetraTheme.shadows
     val interactionSource = remember { MutableInteractionSource() }
 
-    val backgroundColor = if (enabled) colors.accent else colors.canvasSubtle
-    val contentColor = if (enabled) colors.onAccent else colors.textDisabled
+    val backgroundColor = if (enabled) colors.accent else colors.accentDisabled
+    val contentColor = if (enabled) colors.onAccent else colors.onAccentDisabled
     val shadow = if (enabled) shadows.sm else shadows.none
 
     Box(
@@ -307,8 +307,8 @@ fun VetraDangerButton(
     val shadows = VetraTheme.shadows
     val interactionSource = remember { MutableInteractionSource() }
 
-    val backgroundColor = if (enabled) colors.danger else colors.canvasSubtle
-    val contentColor = if (enabled) colors.onDanger else colors.textDisabled
+    val backgroundColor = if (enabled) colors.danger else colors.dangerDisabled
+    val contentColor = if (enabled) colors.onDanger else colors.onDangerDisabled
     val shadow = if (enabled) shadows.sm else shadows.none
 
     Box(

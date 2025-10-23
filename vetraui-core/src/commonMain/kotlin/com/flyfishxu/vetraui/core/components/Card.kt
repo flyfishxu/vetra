@@ -66,6 +66,10 @@ fun VetraCard(
     val baseModifier = modifier
         .vetraShadow(elevation = shadows.sm, shape = shapes.md)
         .clip(shapes.md)
+        // Add subtle border for better definition
+        .background(colors.borderSubtle)
+        .padding(1.dp)
+        .clip(shapes.md)
         .background(colors.canvasElevated)
 
     val finalModifier = if (onClick != null) {
@@ -80,7 +84,7 @@ fun VetraCard(
     }
 
     Column(
-        modifier = finalModifier.padding(16.dp),
+        modifier = finalModifier.padding(15.dp), // Reduced by 1dp to account for border
         content = content
     )
 }
@@ -89,7 +93,7 @@ fun VetraCard(
  * Flat Card - No elevation, subtle appearance
  *
  * Use when you need subtle content grouping without strong visual emphasis.
- * Good for dense layouts or nested cards.
+ * Good for dense layouts or nested cards. Pure flat design with no borders or shadows.
  *
  * @param modifier Modifier for the card
  * @param onClick Optional click handler - makes the card interactive
@@ -130,7 +134,7 @@ fun VetraFlatCard(
  * Elevated Card - Higher elevation for emphasis
  *
  * Use for cards that need extra emphasis or to appear above other content.
- * Good for featured content or important information.
+ * Good for featured content or important information. Features strong shadow without borders.
  *
  * @param modifier Modifier for the card
  * @param onClick Optional click handler - makes the card interactive
@@ -148,7 +152,7 @@ fun VetraElevatedCard(
     val interactionSource = remember { MutableInteractionSource() }
 
     val baseModifier = modifier
-        .vetraShadow(elevation = shadows.lg, shape = shapes.md)
+        .vetraShadow(elevation = shadows.xl, shape = shapes.md)
         .clip(shapes.md)
         .background(colors.canvasElevated)
 
