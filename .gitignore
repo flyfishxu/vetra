@@ -17,4 +17,5 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 node_modules/
-.cursor
+.cursor/
+kotlin-js-store/

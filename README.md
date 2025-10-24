@@ -8,7 +8,7 @@
 
 *Building delightful experiences with light, depth, and motion*
 
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-blue.svg)](https://kotlinlang.org)
+[![Kotlin](https://img.shields.io/badge/Kotlin-2.2.21-blue.svg)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Compose%20Multiplatform-1.9.1-brightgreen.svg)](https://www.jetbrains.com/compose-multiplatform/)
 [![License](https://img.shields.io/badge/MIT-yellow.svg)](https://opensource.org/licenses/Apache2.0 )
 
@@ -61,7 +61,7 @@ Add dependency in `libs.versions.toml`:
 
 ```toml
 [versions]
-vetraui = "1.0.0"
+vetraui = "1.0.0-alpha01"
 
 [libraries]
 vetraui-core = { module = "com.flyfishxu.vetraui:core", version.ref = "vetraui" }
