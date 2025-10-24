@@ -24,6 +24,7 @@ sealed class Destination {
     data object MenuDetail : Destination()
     data object LoadingDetail : Destination()
     data object BadgesAndChipsDetail : Destination()
+    data object DialogsDetail : Destination()
 }
 
 /**
@@ -94,6 +95,7 @@ class NavigationState(
                         is Destination.MenuDetail -> "MenuDetail"
                         is Destination.LoadingDetail -> "LoadingDetail"
                         is Destination.BadgesAndChipsDetail -> "BadgesAndChipsDetail"
+                        is Destination.DialogsDetail -> "DialogsDetail"
                     }
                 }
             },
@@ -110,6 +112,7 @@ class NavigationState(
                         "MenuDetail" -> Destination.MenuDetail
                         "LoadingDetail" -> Destination.LoadingDetail
                         "BadgesAndChipsDetail" -> Destination.BadgesAndChipsDetail
+                        "DialogsDetail" -> Destination.DialogsDetail
                         else -> null
                     }
                 }
@@ -148,7 +151,8 @@ fun Destination.getMainTab(): Destination {
         is Destination.SlidersDetail,
         is Destination.MenuDetail,
         is Destination.LoadingDetail,
-        is Destination.BadgesAndChipsDetail -> Destination.Components
+        is Destination.BadgesAndChipsDetail,
+        is Destination.DialogsDetail -> Destination.Components
         is Destination.Settings -> Destination.Settings
     }
 }

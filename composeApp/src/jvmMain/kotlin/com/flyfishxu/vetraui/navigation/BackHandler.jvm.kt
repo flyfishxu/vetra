@@ -20,8 +20,7 @@ import java.awt.event.KeyAdapter
 actual fun BackHandler(enabled: Boolean, onBack: () -> Unit) {
     DisposableEffect(enabled) {
         if (!enabled) {
-            onDispose { }
-            return@DisposableEffect
+            return@DisposableEffect onDispose { }
         }
         
         val keyListener = object : KeyAdapter() {

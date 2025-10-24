@@ -125,6 +125,17 @@ fun ComponentsGalleryScreen(
             )
         }
 
+        // Dialogs
+        item {
+            ComponentCategoryCard(
+                title = "Dialogs",
+                description = "Modal overlays with elegant animations for important interactions",
+                icon = Icons.Filled.QuestionAnswer,
+                iconColor = colors.info,
+                onClick = { onNavigateToDetail(Destination.DialogsDetail) }
+            )
+        }
+
         // Quick Stats
         item {
             VetraOutlinedCard(modifier = Modifier.fillMaxWidth()) {
@@ -141,7 +152,7 @@ fun ComponentsGalleryScreen(
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         StatItem(
-                            value = "35+",
+                            value = "40+",
                             label = "Components",
                             color = colors.brand
                         )
@@ -154,7 +165,7 @@ fun ComponentsGalleryScreen(
                         )
 
                         StatItem(
-                            value = "7",
+                            value = "8",
                             label = "Categories",
                             color = colors.accent
                         )
