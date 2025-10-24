@@ -203,13 +203,14 @@ fun VetraTextField(
             // Animated underline
             Canvas(
                 modifier = Modifier
-                    .graphicsLayer {
-                        translationY = inputOffsetY
-                    }
                     .fillMaxWidth()
                     .height(TextFieldLineWidth)
                     .padding(top = 7.dp)
                     .align(Alignment.BottomCenter)
+                    .then(
+                        if (label.isNullOrEmpty()) Modifier
+                        else Modifier.graphicsLayer { translationY = inputOffsetY }
+                    )
             ) {
                 val canvasWidth = size.width
                 val lineHeightPx = TextFieldLineWidth.toPx()
@@ -237,14 +238,13 @@ fun VetraTextField(
 
             // Animated floating label - uses graphicsLayer for smooth transform
             // This approach avoids layout recomposition and prevents pushing content
-            if (label != null) {
-                Box(
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .padding(
-                            start = if (leadingIcon != null) 36.dp else 0.dp,
-                        )
-                        .graphicsLayer {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .padding(start = if (leadingIcon != null) 36.dp else 0.dp)
+                    .then(
+                        if (label.isNullOrEmpty()) Modifier
+                        else Modifier.graphicsLayer {
                             // Scale from center-left to keep it aligned
                             scaleX = labelScale
                             scaleY = labelScale
@@ -252,13 +252,17 @@ fun VetraTextField(
                             translationY = labelOffsetY
                             alpha = labelAlpha
                         }
-                ) {
-                    Text(
-                        text = label,
-                        style = typography.bodyLg.copy(color = labelColor),
-                        maxLines = 1
                     )
-                }
+                ) {
+                if (value.isEmpty() && label.isNullOrEmpty()) Text(
+                    text = placeholder ?: "",
+                    style = typography.bodyLg.copy(color = labelColor),
+                    maxLines = 1
+                ) else Text(
+                    text = label ?: "",
+                    style = typography.bodyLg.copy(color = labelColor),
+                    maxLines = 1
+                )
             }
 
             // Content row with icons and text
@@ -267,9 +271,10 @@ fun VetraTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterStart)
-                    .graphicsLayer {
-                        translationY = inputOffsetY
-                    },
+                    .then(
+                        if (label.isNullOrEmpty()) Modifier
+                        else Modifier.graphicsLayer { translationY = inputOffsetY }
+                    ),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Leading icon
@@ -400,7 +405,6 @@ private fun VetraTextFieldPreview() {
             VetraTextField(
                 value = passwordText,
                 onValueChange = { passwordText = it },
-                label = "Password",
                 placeholder = "Enter password",
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)

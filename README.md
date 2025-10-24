@@ -70,7 +70,7 @@ Add dependency in `libs.versions.toml`:
 vetraui = "1.0.0"
 
 [libraries]
-vetraui-core = { module = "com.flyfishxu:vetraui-core", version.ref = "vetraui" }
+vetraui-core = { module = "com.flyfishxu.vetraui:core", version.ref = "vetraui" }
 ```
 
 In your `build.gradle.kts`:
@@ -106,11 +106,19 @@ fun App() {
                 Text("Beautiful content in a refined container")
             }
             
-            // Animated TextField
+            // Basic TextField (for search, simple input)
             VetraTextField(
-                value = text,
-                onValueChange = { text = it },
-                label = "Enter your name"
+                value = searchText,
+                onValueChange = { searchText = it },
+                placeholder = "Search..."
+            )
+            
+            // Floating Label TextField (for forms)
+            VetraFloatingTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = "Full Name",
+                placeholder = "Enter your name"
             )
         }
     }
