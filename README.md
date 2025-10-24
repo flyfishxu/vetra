@@ -20,8 +20,6 @@
 
 ## Philosophy
 
----
-
 Vetra UI is a modern design system built from the ground up for Compose Multiplatform. We define our own visual language with careful attention to every interaction detail.
 
 **Core Principles:**
@@ -32,8 +30,6 @@ Vetra UI is a modern design system built from the ground up for Compose Multipla
 - **Light & Depth** - Seven elevation levels create natural depth perception through carefully calibrated shadows
 
 ## Features
-
----
 
 ### Cross-Platform
 - Support Android iOS and Desktop
@@ -58,8 +54,6 @@ Vetra UI is a modern design system built from the ground up for Compose Multipla
 - Clarity over Abstraction: Intuitive naming, predictable APIs
 
 ## Quick Start
-
----
 
 ### Installation (Still developing, not yet released)
 
@@ -127,8 +121,6 @@ fun App() {
 
 ## Contributing
 
----
-
 Contributions are welcome! Before submitting:
 
 - Follow the existing code style
@@ -139,8 +131,6 @@ Contributions are welcome! Before submitting:
 
 
 ## LICENSE
-
----
 
 VetraUI is [MIT](https://github.com/flyfishxu/vetra-ui/blob/main/LICENSE) licensed.
 
