@@ -10,7 +10,7 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.20-blue.svg)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Compose%20Multiplatform-1.9.1-brightgreen.svg)](https://www.jetbrains.com/compose-multiplatform/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green.svg)](https://opensource.org/licenses/Apache2.0 )
+[![License](https://img.shields.io/badge/MIT-yellow.svg)](https://opensource.org/licenses/Apache2.0 )
 
 </div>
 
@@ -18,9 +18,9 @@
   <img src="images/showcase.png" alt="Vetra UI Components Showcase" width="100%"/>
 </div>
 
----
-
 ## Philosophy
+
+---
 
 Vetra UI is a modern design system built from the ground up for Compose Multiplatform. We define our own visual language with careful attention to every interaction detail.
 
@@ -31,9 +31,9 @@ Vetra UI is a modern design system built from the ground up for Compose Multipla
 - **Flowing Interactions** - Organic feedback with elastic animations, progressive states, and spring physics
 - **Light & Depth** - Seven elevation levels create natural depth perception through carefully calibrated shadows
 
----
-
 ## Features
+
+---
 
 ### Cross-Platform
 - Support Android iOS and Desktop
@@ -57,9 +57,9 @@ Vetra UI is a modern design system built from the ground up for Compose Multipla
 - Space over Density: Give content room to breathe
 - Clarity over Abstraction: Intuitive naming, predictable APIs
 
----
-
 ## Quick Start
+
+---
 
 ### Installation (Still developing, not yet released)
 
@@ -125,9 +125,9 @@ fun App() {
 }
 ```
 
----
-
 ## Contributing
+
+---
 
 Contributions are welcome! Before submitting:
 
@@ -137,12 +137,17 @@ Contributions are welcome! Before submitting:
 - Test cross-platform compatibility
 - Keep components independent and reusable
 
+
+## LICENSE
+
+---
+
+VetraUI is [MIT](https://github.com/flyfishxu/vetra-ui/blob/main/LICENSE) licensed.
+
 ---
 
 <div align="center">
 
-© 2025 flyfishxu and contributors.  
-Maintained under the Apache License 2.0.
+[Example App](composeApp/) · [Report Bug](https://github.com/flyfishxu/vetra-ui/issues)
 
-[Example App](composeApp/) · [Report Bug](issues)
 </div>

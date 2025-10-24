@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Label
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -86,7 +87,7 @@ fun ComponentsGalleryScreen(
             ComponentCategoryCard(
                 title = "Badges & Chips",
                 description = "Status badges, notification dots, and interactive tags",
-                icon = Icons.Filled.Label,
+                icon = Icons.AutoMirrored.Filled.Label,
                 iconColor = colors.warning,
                 onClick = { onNavigateToDetail(Destination.BadgesAndChipsDetail) }
             )
