@@ -3,6 +3,7 @@ package com.flyfishxu.vetraui.core.theme
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -17,10 +18,10 @@ import androidx.compose.ui.unit.dp
  * comfortable visual hierarchy without being harsh or distracting.
  *
  * Design Philosophy:
- * - Soft, diffused shadows that mimic natural light
- * - Multiple blur levels for realistic depth
- * - Subtle color tinting for visual warmth
- * - Optimized for both light and dark modes
+ * - Clear, visible shadows that establish proper depth hierarchy
+ * - Multiple blur levels for realistic depth perception
+ * - Adaptive transparency for light and dark modes
+ * - Optimized for cross-platform rendering
  */
 @Immutable
 data class VetraShadows(
@@ -74,6 +75,20 @@ data class VetraShadows(
 )
 
 /**
+ * Shadow configuration for different theme modes
+ *
+ * @param ambientAlpha Alpha value for ambient shadow (0.0 - 1.0)
+ * @param spotAlpha Alpha value for spot shadow (0.0 - 1.0)
+ * @param elevationMultiplier Multiplier for elevation spread (typically 1.0 - 1.5)
+ */
+@Immutable
+data class ShadowConfig(
+    val ambientAlpha: Float,
+    val spotAlpha: Float,
+    val elevationMultiplier: Float = 1.2f
+)
+
+/**
  * Default Vetra Shadows
  */
 val DefaultVetraShadows = VetraShadows(
@@ -87,55 +102,72 @@ val DefaultVetraShadows = VetraShadows(
 )
 
 /**
+ * Light mode shadow configuration
+ * 
+ * Carefully tuned for natural appearance while maintaining clear visibility:
+ * - Ambient shadow provides soft base depth without heaviness
+ * - Spot shadow creates directional separation for hierarchy
+ * - Conservative multiplier prevents excessive shadow spread
+ */
+val LightModeShadowConfig = ShadowConfig(
+    ambientAlpha = 0.15f,  // 15% - Soft ambient shadow for gentle depth
+    spotAlpha = 0.25f,     // 25% - Clear directional shadow for separation
+    elevationMultiplier = 1.15f  // Conservative spread for natural appearance
+)
+
+/**
+ * Dark mode shadow configuration
+ * 
+ * Higher opacity needed for visibility on dark backgrounds:
+ * - Darker backgrounds require stronger shadows to be visible
+ * - Slightly more spread helps shadow stand out
+ * - Still maintains natural, non-aggressive appearance
+ */
+val DarkModeShadowConfig = ShadowConfig(
+    ambientAlpha = 0.25f,  // 25% - Stronger ambient for dark background visibility
+    spotAlpha = 0.35f,     // 35% - Clear directional shadow on dark backgrounds
+    elevationMultiplier = 1.2f  // Slightly more spread for dark mode visibility
+)
+
+/**
  * Apply a soft, natural shadow to create elegant elevation
  *
- * This shadow system creates depth through:
- * 1. Balanced blur radius for natural appearance
- * 2. Subtle transparency for elegance
+ * This shadow system automatically adapts to the current theme mode (light/dark)
+ * and creates depth through:
+ * 1. Adaptive blur radius based on elevation
+ * 2. Mode-aware transparency (different for light/dark themes)
  * 3. Realistic lighting that mimics natural shadows
  *
  * Design principles:
- * - Shadows should be visible but not overwhelming
+ * - Shadows should be clearly visible and establish hierarchy
  * - Heavier at the bottom (natural light from above)
- * - Soft and diffused for comfortable viewing
- * - Transparent enough to feel lightweight
+ * - Adaptive opacity for different theme modes
+ * - Balanced spread for natural appearance
  *
  * @param elevation The elevation level (vertical distance from surface)
  * @param shape The shape of the shadow
  * @param clip Whether to clip the content to the shape
- * @param tint Optional tint color for the shadow
  */
 fun Modifier.vetraShadow(
     elevation: Dp,
     shape: Shape = RectangleShape,
-    clip: Boolean = false,
-    tint: Color? = null
-): Modifier {
-    // Do not early-return at 0dp during animated transitions.
-    // Let caller control alpha/scale; we still return a no-op shadow for 0dp.
-    // This avoids sudden shadow drop/flash when elevation animates to or from 0.
+    clip: Boolean = false
+): Modifier = composed {
     if (elevation <= 0.dp) {
-        return this
+        return@composed this
     }
 
-    // Balanced diffusion: 1.2x spread provides soft edges without excessive blur
-    // This creates natural-looking shadows that don't extend too far
-    val softElevation = elevation * 1.2f
+    val config = LocalVetraShadowConfig.current
 
-    // Refined alpha values for elegant, subtle shadows:
-    // - Ambient: 6% provides gentle base shadow without heaviness
-    // - Spot: 10% adds definition and depth without harshness
-    // These values create visible yet unobtrusive shadows
-    val ambientAlpha = 0.06f  // Soft base shadow for subtle depth
-    val spotAlpha = 0.10f     // Directional shadow for clear separation
+    // Apply configured elevation multiplier for natural shadow spread
+    val effectiveElevation = elevation * config.elevationMultiplier
 
-    val ambientColor = tint?.copy(alpha = ambientAlpha)
-        ?: Color.Black.copy(alpha = ambientAlpha)
-    val spotColor = tint?.copy(alpha = spotAlpha)
-        ?: Color.Black.copy(alpha = spotAlpha)
+    // Use configured alpha values for proper visibility
+    val ambientColor = Color.Black.copy(alpha = config.ambientAlpha)
+    val spotColor = Color.Black.copy(alpha = config.spotAlpha)
 
-    return this.shadow(
-        elevation = softElevation,
+    this.shadow(
+        elevation = effectiveElevation,
         shape = shape,
         clip = clip,
         ambientColor = ambientColor,
@@ -147,4 +179,10 @@ fun Modifier.vetraShadow(
  * Local provider for Vetra shadows
  */
 val LocalVetraShadows = staticCompositionLocalOf { DefaultVetraShadows }
+
+/**
+ * Local provider for shadow configuration
+ * Automatically adapts to light/dark mode
+ */
+val LocalVetraShadowConfig = staticCompositionLocalOf { LightModeShadowConfig }
 

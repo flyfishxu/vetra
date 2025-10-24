@@ -139,7 +139,7 @@ Based on a harmonious progression (major second - 1.125×):
 
 ### Elevation Levels
 
-Soft, natural shadows that create comfortable visual hierarchy:
+Clear, adaptive shadows that create proper visual hierarchy:
 
 - **none** - 0dp - Flat surfaces
 - **xs** - 1dp - Subtle separation
@@ -151,12 +151,12 @@ Soft, natural shadows that create comfortable visual hierarchy:
 
 ### Shadow Philosophy
 
-Unlike Material's heavy shadows, Vetra uses:
-- Balanced blur radius (1.2× elevation) for natural appearance
-- Subtle transparency for elegant, lightweight feel
-- Natural lighting model mimicking light from above
-- Refined alpha values: ambient 6%, spot 10%
-- Shadows that are visible yet never overwhelming
+Vetra's adaptive shadow system features:
+- **Mode-Aware**: Automatic adjustment for light (15-25%) and dark (25-35%) modes
+- **Clear Hierarchy**: Properly tuned transparency ensures visible depth
+- **Natural Appearance**: Conservative blur radius (1.15-1.2× elevation) prevents excessive spread
+- **Natural Lighting**: Mimics light from above with directional shadows
+- **Cross-Platform**: Consistent rendering on Android, iOS, and Desktop
 
 ---
 
@@ -353,11 +353,12 @@ Every animation should:
 | Aspect | Material Design | Vetra UI |
 |--------|----------------|----------|
 | **Naming** | Technical (primary, onSecondaryContainer) | Semantic (brand, textSecondary) |
-| **Shadows** | Heavy, prominent | Soft, elegant |
+| **Shadows** | Heavy, prominent | Adaptive, mode-aware |
 | **Philosophy** | Google's design language | Universal appeal |
 | **Flexibility** | Opinionated structure | Flexible semantics |
 | **Learning Curve** | Complex color roles | Intuitive names |
 | **Animations** | Standard durations | Refined, purposeful |
+| **Dark Mode** | Single shadow config | Adaptive shadow opacity |
 
 ---
 

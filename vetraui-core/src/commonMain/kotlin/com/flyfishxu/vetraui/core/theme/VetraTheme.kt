@@ -40,6 +40,7 @@ import androidx.compose.runtime.ReadOnlyComposable
  * @param typography Custom typography (defaults to DefaultVetraTypography)
  * @param shapes Custom shapes (defaults to DefaultVetraShapes)
  * @param shadows Custom shadows (defaults to DefaultVetraShadows)
+ * @param shadowConfig Custom shadow configuration (defaults based on darkMode)
  * @param content The content to theme
  */
 @Composable
@@ -49,6 +50,7 @@ fun VetraTheme(
     typography: VetraTypography = DefaultVetraTypography,
     shapes: VetraShapes = DefaultVetraShapes,
     shadows: VetraShadows = DefaultVetraShadows,
+    shadowConfig: ShadowConfig = if (darkMode) DarkModeShadowConfig else LightModeShadowConfig,
     content: @Composable () -> Unit
 ) {
     CompositionLocalProvider(
@@ -56,6 +58,7 @@ fun VetraTheme(
         LocalVetraTypography provides typography,
         LocalVetraShapes provides shapes,
         LocalVetraShadows provides shadows,
+        LocalVetraShadowConfig provides shadowConfig,
         content = content
     )
 }
@@ -95,4 +98,12 @@ object VetraTheme {
         @Composable
         @ReadOnlyComposable
         get() = LocalVetraShadows.current
+
+    /**
+     * Retrieves the current [ShadowConfig] at the call site's position in the hierarchy.
+     */
+    val shadowConfig: ShadowConfig
+        @Composable
+        @ReadOnlyComposable
+        get() = LocalVetraShadowConfig.current
 }
