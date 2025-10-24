@@ -40,9 +40,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -64,9 +69,10 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * and usability in mind.
  */
 
-private val TextFieldHeight = 56.dp
+private val TextFieldHeight = 58.dp
 private val TextFieldLineWidth = 2.dp
 private val TextFieldPadding = 16.dp
+private val TextFieldVerticalPadding = 20.dp
 private val AnimationDurationMs = 300
 
 /**
@@ -150,15 +156,31 @@ fun VetraTextField(
     )
 
     val labelScale by animateFloatAsState(
-        targetValue = if (shouldFloatLabel) 0.85f else 1f,
+        targetValue = if (shouldFloatLabel) 0.75f else 1f,
         animationSpec = tween(durationMillis = AnimationDurationMs, easing = EaseOut),
         label = "labelScale"
     )
 
     val labelAlpha by animateFloatAsState(
-        targetValue = if (shouldFloatLabel) 1f else 0.6f,
+        targetValue = if (shouldFloatLabel) 1f else 0.7f,
         animationSpec = tween(durationMillis = AnimationDurationMs),
         label = "labelAlpha"
+    )
+
+    // Smooth label position animation - moves up when focused
+    // Label moves up by 28dp to sit above the input area
+    val labelOffsetY by animateFloatAsState(
+        targetValue = if (shouldFloatLabel) -40f else 0f,
+        animationSpec = tween(durationMillis = AnimationDurationMs, easing = EaseOut),
+        label = "labelOffsetY"
+    )
+
+    // Input area moves down when label floats up to maintain visual balance
+    // This creates a smooth, coordinated animation
+    val inputOffsetY by animateFloatAsState(
+        targetValue = if (shouldFloatLabel) 12f else 0f,
+        animationSpec = tween(durationMillis = AnimationDurationMs, easing = EaseOut),
+        label = "inputOffsetY"
     )
 
     val placeholderAlpha by animateFloatAsState(
@@ -167,38 +189,26 @@ fun VetraTextField(
         label = "placeholderAlpha"
     )
 
-    Column(modifier = modifier) {
-        // Floating label (above the field when active)
-        if (label != null && shouldFloatLabel) {
-            Box(
-                modifier = Modifier
-                    .padding(start = TextFieldPadding, bottom = 6.dp)
-                    .scale(labelScale)
-                    .alpha(labelAlpha)
-            ) {
-                Text(
-                    text = label,
-                    style = typography.labelMd.copy(color = labelColor)
-                )
-            }
-        }
-
-        // Main text field container
+    // Main text field container
+    Box(modifier = modifier) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .defaultMinSize(minHeight = TextFieldHeight)
                 .clip(shapes.sm)
                 .background(backgroundColor)
-                .padding(horizontal = TextFieldPadding, vertical = 16.dp),
+                .padding(horizontal = TextFieldPadding, vertical = TextFieldVerticalPadding),
             contentAlignment = Alignment.CenterStart
         ) {
             // Animated underline
             Canvas(
                 modifier = Modifier
+                    .graphicsLayer {
+                        translationY = inputOffsetY
+                    }
                     .fillMaxWidth()
                     .height(TextFieldLineWidth)
-                    .padding(top = 4.dp)
+                    .padding(top = 7.dp)
                     .align(Alignment.BottomCenter)
             ) {
                 val canvasWidth = size.width
@@ -225,29 +235,41 @@ fun VetraTextField(
                 }
             }
 
-            // Label inside field (when not floating)
-            if (label != null && !shouldFloatLabel) {
+            // Animated floating label - uses graphicsLayer for smooth transform
+            // This approach avoids layout recomposition and prevents pushing content
+            if (label != null) {
                 Box(
                     modifier = Modifier
                         .align(Alignment.CenterStart)
                         .padding(
                             start = if (leadingIcon != null) 36.dp else 0.dp,
-                            end = if (trailingIcon != null) 36.dp else 0.dp
                         )
-                        .alpha(labelAlpha)
+                        .graphicsLayer {
+                            // Scale from center-left to keep it aligned
+                            scaleX = labelScale
+                            scaleY = labelScale
+                            transformOrigin = TransformOrigin(0f, 0.5f)
+                            translationY = labelOffsetY
+                            alpha = labelAlpha
+                        }
                 ) {
                     Text(
                         text = label,
-                        style = typography.bodyLg.copy(color = labelColor)
+                        style = typography.bodyLg.copy(color = labelColor),
+                        maxLines = 1
                     )
                 }
             }
 
             // Content row with icons and text
+            // Moves down when label floats up for balanced visual alignment
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .align(Alignment.CenterStart),
+                    .align(Alignment.CenterStart)
+                    .graphicsLayer {
+                        translationY = inputOffsetY
+                    },
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Leading icon

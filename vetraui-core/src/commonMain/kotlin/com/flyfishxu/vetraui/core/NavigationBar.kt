@@ -94,7 +94,7 @@ fun VetraNavigationBar(
             .fillMaxWidth()
             .vetraShadow(
                 elevation = shadows.lg,
-                shape = shapes.none
+                shape = shapes.md
             )
             .background(colors.canvasElevated)
             .navigationBarsPadding()
@@ -103,7 +103,7 @@ fun VetraNavigationBar(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(NavigationBarHeight)
-                .padding(horizontal = 16.dp, vertical = 10.dp),
+                .padding(horizontal = 16.dp, vertical = 8.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {

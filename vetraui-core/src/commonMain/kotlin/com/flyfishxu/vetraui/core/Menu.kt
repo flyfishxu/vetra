@@ -373,7 +373,7 @@ fun VetraContextMenu(
  * VetraMenuButton
  *
  * A button that triggers a dropdown menu.
- * Combines a VetraButton with a VetraDropdownMenu for easy use.
+ * Combines a button with a VetraDropdownMenu for easy use.
  *
  * @param text Button text
  * @param modifier Modifier for the button
@@ -392,10 +392,13 @@ fun VetraMenuButton(
     var expanded by remember { mutableStateOf(false) }
 
     Box {
-        VetraButton(
-            onClick = { expanded = true },
-            modifier = modifier,
-            enabled = enabled
+        // Simple button trigger
+        Box(
+            modifier = modifier
+                .clip(VetraTheme.shapes.sm)
+                .background(VetraTheme.colors.brand)
+                .clickable(enabled = enabled) { expanded = true }
+                .padding(horizontal = 16.dp, vertical = 12.dp)
         ) {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -405,10 +408,15 @@ fun VetraMenuButton(
                     Icon(
                         imageVector = leadingIcon,
                         contentDescription = null,
-                        modifier = Modifier.size(18.dp)
+                        modifier = Modifier.size(18.dp),
+                        tint = VetraTheme.colors.onBrand
                     )
                 }
-                Text(text)
+                Text(
+                    text = text,
+                    style = VetraTheme.typography.labelLg,
+                    color = VetraTheme.colors.onBrand
+                )
             }
         }
 
@@ -442,15 +450,19 @@ fun VetraIconMenuButton(
     var expanded by remember { mutableStateOf(false) }
 
     Box {
-        VetraIconButton(
-            onClick = { expanded = true },
-            modifier = modifier,
-            enabled = enabled
+        // Simple icon button trigger
+        Box(
+            modifier = modifier
+                .clip(VetraTheme.shapes.full)
+                .clickable(enabled = enabled) { expanded = true }
+                .padding(12.dp),
+            contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = contentDescription,
-                modifier = Modifier.size(MenuIconSize)
+                modifier = Modifier.size(MenuIconSize),
+                tint = VetraTheme.colors.textPrimary
             )
         }
 
