@@ -103,11 +103,6 @@ val DefaultVetraShadows = VetraShadows(
 
 /**
  * Light mode shadow configuration
- * 
- * Carefully tuned for natural appearance while maintaining clear visibility:
- * - Ambient shadow provides soft base depth without heaviness
- * - Spot shadow creates directional separation for hierarchy
- * - Conservative multiplier prevents excessive shadow spread
  */
 val LightModeShadowConfig = ShadowConfig(
     ambientAlpha = 0.15f,  // 15% - Soft ambient shadow for gentle depth
@@ -117,11 +112,6 @@ val LightModeShadowConfig = ShadowConfig(
 
 /**
  * Dark mode shadow configuration
- * 
- * Higher opacity needed for visibility on dark backgrounds:
- * - Darker backgrounds require stronger shadows to be visible
- * - Slightly more spread helps shadow stand out
- * - Still maintains natural, non-aggressive appearance
  */
 val DarkModeShadowConfig = ShadowConfig(
     ambientAlpha = 0.25f,  // 25% - Stronger ambient for dark background visibility
@@ -130,13 +120,7 @@ val DarkModeShadowConfig = ShadowConfig(
 )
 
 /**
- * Apply a soft, natural shadow to create elegant elevation
- *
- * This shadow system automatically adapts to the current theme mode (light/dark)
- * and creates depth through:
- * 1. Adaptive blur radius based on elevation
- * 2. Mode-aware transparency (different for light/dark themes)
- * 3. Realistic lighting that mimics natural shadows
+ * Soft, natural shadow
  *
  * Design principles:
  * - Shadows should be clearly visible and establish hierarchy

@@ -36,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.VetraBrandCard
 import com.flyfishxu.vetraui.core.VetraButton
@@ -55,6 +56,7 @@ fun SettingsScreen(
 ) {
     val colors = VetraTheme.colors
     val typography = VetraTheme.typography
+    val uriHandler = LocalUriHandler.current
 
     var notificationsEnabled by remember { mutableStateOf(true) }
     var soundEnabled by remember { mutableStateOf(true) }
@@ -254,7 +256,9 @@ fun SettingsScreen(
                         VetraOutlinedButton(onClick = {}) {
                             Text("Documentation")
                         }
-                        VetraButton(onClick = {}) {
+                        VetraButton(onClick = {
+                            uriHandler.openUri("https://github.com/flyfishxu/vetra")
+                        }) {
                             Text("GitHub")
                         }
                     }

@@ -394,16 +394,22 @@ fun InputsScreen() {
                         style = typography.bodyMd.copy(color = colors.textSecondary)
                     )
 
+                    var formName by remember { mutableStateOf("") }
+                    var formPhone by remember { mutableStateOf("") }
+                    var formContactMethod by remember { mutableStateOf("Email") }
+                    var formTermsAccepted by remember { mutableStateOf(false) }
+                    var formNewsletterSubscribed by remember { mutableStateOf(true) }
+
                     VetraTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = formName,
+                        onValueChange = { formName = it },
                         label = "Full Name",
                         placeholder = "John Doe"
                     )
 
                     VetraTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = formPhone,
+                        onValueChange = { formPhone = it },
                         label = "Phone",
                         placeholder = "+1 (555) 123-4567",
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
@@ -415,19 +421,19 @@ fun InputsScreen() {
                     )
                     VetraRadioGroup(
                         options = listOf("Email", "Phone", "SMS"),
-                        selectedOption = "Email",
-                        onOptionSelected = {}
+                        selectedOption = formContactMethod,
+                        onOptionSelected = { formContactMethod = it }
                     )
 
                     VetraCheckboxWithLabel(
-                        checked = true,
-                        onCheckedChange = {},
+                        checked = formTermsAccepted,
+                        onCheckedChange = { formTermsAccepted = it },
                         label = "I agree to the terms and conditions"
                     )
 
                     VetraSwitchWithLabel(
-                        checked = true,
-                        onCheckedChange = {},
+                        checked = formNewsletterSubscribed,
+                        onCheckedChange = { formNewsletterSubscribed = it },
                         label = "Subscribe to newsletter"
                     )
 
@@ -436,13 +442,22 @@ fun InputsScreen() {
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         VetraOutlinedButton(
-                            onClick = {},
+                            onClick = {
+                                formName = ""
+                                formPhone = ""
+                                formContactMethod = "Email"
+                                formTermsAccepted = false
+                                formNewsletterSubscribed = true
+                            },
                             modifier = Modifier.weight(1f)
                         ) {
                             Text("Cancel")
                         }
                         VetraButton(
-                            onClick = {},
+                            onClick = {
+                                // Form submit action
+                                println("Form submitted: $formName, $formPhone, $formContactMethod")
+                            },
                             modifier = Modifier.weight(1f)
                         ) {
                             Text("Submit")

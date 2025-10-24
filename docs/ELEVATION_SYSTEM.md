@@ -79,48 +79,6 @@ VetraTheme(
 }
 ```
 
-## Component Usage Examples
-
-### Cards
-
-```kotlin
-VetraCard() {
-    // Uses shadows.sm elevation by default
-}
-
-VetraElevatedCard() {
-    // Uses shadows.md elevation for stronger emphasis
-}
-```
-
-### Buttons
-
-```kotlin
-VetraButton() {
-    // Uses shadows.sm elevation for primary actions
-}
-
-VetraSecondaryButton() {
-    // Uses shadows.sm elevation for secondary actions
-}
-```
-
-### Sliders
-
-```kotlin
-VetraSlider() {
-    // Thumb uses shadows.md elevation for clear separation from track
-}
-```
-
-### Navigation Bar
-
-```kotlin
-VetraNavigationBar() {
-    // Uses elevated shadow to float above content
-}
-```
-
 ## Design Principles
 
 1. **Consistency**: Predefined levels ensure uniform visual hierarchy
