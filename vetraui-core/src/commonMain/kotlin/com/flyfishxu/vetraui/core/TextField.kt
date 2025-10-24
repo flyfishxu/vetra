@@ -170,7 +170,7 @@ fun VetraTextField(
     // Smooth label position animation - moves up when focused
     // Label moves up by 28dp to sit above the input area
     val labelOffsetY by animateFloatAsState(
-        targetValue = if (shouldFloatLabel) -40f else 0f,
+        targetValue = if (shouldFloatLabel) -46f else 0f,
         animationSpec = tween(durationMillis = AnimationDurationMs, easing = EaseOut),
         label = "labelOffsetY"
     )

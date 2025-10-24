@@ -81,6 +81,17 @@ fun ComponentsGalleryScreen(
             )
         }
 
+        // Badges & Chips
+        item {
+            ComponentCategoryCard(
+                title = "Badges & Chips",
+                description = "Status badges, notification dots, and interactive tags",
+                icon = Icons.Filled.Label,
+                iconColor = colors.warning,
+                onClick = { onNavigateToDetail(Destination.BadgesAndChipsDetail) }
+            )
+        }
+
         // Sliders & Dividers
         item {
             ComponentCategoryCard(
@@ -130,7 +141,7 @@ fun ComponentsGalleryScreen(
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         StatItem(
-                            value = "30+",
+                            value = "35+",
                             label = "Components",
                             color = colors.brand
                         )
@@ -143,7 +154,7 @@ fun ComponentsGalleryScreen(
                         )
 
                         StatItem(
-                            value = "6",
+                            value = "7",
                             label = "Categories",
                             color = colors.accent
                         )

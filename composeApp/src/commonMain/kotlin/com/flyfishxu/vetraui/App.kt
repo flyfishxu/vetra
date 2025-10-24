@@ -109,6 +109,7 @@ fun App(
                             is Destination.SlidersDetail -> "Sliders"
                             is Destination.MenuDetail -> "Menus"
                             is Destination.LoadingDetail -> "Loading"
+                            is Destination.BadgesAndChipsDetail -> "Badges & Chips"
                         }
                     )
                 },
@@ -165,6 +166,7 @@ fun App(
                     is Destination.SlidersDetail -> SlidersScreen()
                     is Destination.MenuDetail -> MenuScreen()
                     is Destination.LoadingDetail -> LoadingScreen()
+                    is Destination.BadgesAndChipsDetail -> BadgesAndChipsScreen()
                 }
             }
 

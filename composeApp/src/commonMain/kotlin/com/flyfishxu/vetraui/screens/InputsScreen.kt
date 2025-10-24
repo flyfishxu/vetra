@@ -158,7 +158,6 @@ fun InputsScreen() {
                 VetraTextField(
                     value = search,
                     onValueChange = { search = it },
-                    label = "Search",
                     placeholder = "Search for anything...",
                     trailingIcon = {
                         Icon(
