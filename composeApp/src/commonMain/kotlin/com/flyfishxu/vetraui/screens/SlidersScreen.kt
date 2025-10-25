@@ -9,12 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.*
 import com.flyfishxu.vetraui.core.theme.VetraTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Sliders & Dividers Screen
  *
  * Demonstrates all slider and divider variants in Vetra UI
  */
+@Preview
 @Composable
 fun SlidersScreen() {
     val colors = VetraTheme.colors

@@ -17,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.*
 import com.flyfishxu.vetraui.core.theme.VetraTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Dialogs Screen
  *
  * Demonstrates all dialog variants and use cases
  */
+@Preview
 @Composable
 fun DialogsScreen() {
     val colors = VetraTheme.colors
@@ -126,28 +128,6 @@ fun DialogsScreen() {
             DemoSection(title = "Custom Dialog") {
                 VetraOutlinedButton(onClick = { showCustomDialog = true }) {
                     Text("Show Custom Dialog")
-                }
-            }
-        }
-
-        // Design Notes
-        item {
-            VetraOutlinedCard(modifier = Modifier.fillMaxWidth()) {
-                Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Text(
-                        "Design Notes",
-                        style = typography.headingMd.copy(color = colors.textPrimary)
-                    )
-                    VetraSubtleDivider()
-                    Text(
-                        "• Standard Dialog: For complex interactions with title, content, and actions\n" +
-                                "• Alert Dialog: Quick confirmations with simplified API\n" +
-                                "• Custom Dialog: Full control over content and layout\n" +
-                                "• Animations: Smooth scale + fade for elegant transitions\n" +
-                                "• Elevation: XL shadow (16dp) for proper hierarchy\n" +
-                                "• Shape: XL corners (24dp) for modern aesthetics",
-                        style = typography.bodySm.copy(color = colors.textSecondary)
-                    )
                 }
             }
         }

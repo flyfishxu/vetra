@@ -1,5 +1,6 @@
 package com.flyfishxu.vetraui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -64,6 +65,7 @@ import com.flyfishxu.vetraui.core.VetraMenuLabel
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@Preview
 @Composable
 fun MenuScreen() {
     val colors = VetraTheme.colors
@@ -72,7 +74,9 @@ fun MenuScreen() {
     var selectedAction by remember { mutableStateOf("No action selected") }
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colors.canvas),
         contentPadding = PaddingValues(24.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
@@ -473,20 +477,3 @@ fun MenuScreen() {
         }
     }
 }
-
-@Preview
-@Composable
-fun MenuScreenPreview() {
-    VetraTheme {
-        MenuScreen()
-    }
-}
-
-@Preview
-@Composable
-fun MenuScreenDarkPreview() {
-    VetraTheme(darkMode = true) {
-        MenuScreen()
-    }
-}
-

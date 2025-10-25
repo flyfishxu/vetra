@@ -1,5 +1,6 @@
 package com.flyfishxu.vetraui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -25,14 +26,18 @@ import com.flyfishxu.vetraui.core.VetraSkeletonCard
 import com.flyfishxu.vetraui.core.VetraSkeletonListItem
 import com.flyfishxu.vetraui.core.VetraSkeletonText
 import com.flyfishxu.vetraui.core.theme.VetraTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@Preview
 @Composable
 fun LoadingScreen() {
     val colors = VetraTheme.colors
     val typography = VetraTheme.typography
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colors.canvas),
         contentPadding = PaddingValues(24.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {

@@ -29,19 +29,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.*
 import com.flyfishxu.vetraui.core.theme.VetraTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 /**
  * Badges and Chips Screen
  *
  * Demonstrates all badge and chip variants with interactive examples
  */
+@Preview
 @Composable
 fun BadgesAndChipsScreen() {
     val colors = VetraTheme.colors
     val typography = VetraTheme.typography
 
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colors.canvas),
         contentPadding = PaddingValues(24.dp),
         verticalArrangement = Arrangement.spacedBy(32.dp)
     ) {
