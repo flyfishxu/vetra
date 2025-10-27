@@ -367,6 +367,10 @@ fun VetraRangeSlider(
     val thumbBorderColor = if (enabled) colors.border else colors.borderSubtle
     val thumbShadow = if (enabled) shadows.md else shadows.none
 
+    val currentValuesState = rememberUpdatedState(values)
+    val currentNormalizedStartState = rememberUpdatedState(normalizedStart)
+    val currentNormalizedEndState = rememberUpdatedState(normalizedEnd)
+
     fun handleDrag(positionX: Float, isStartThumb: Boolean) {
         val sliderWidth = sliderSize.width
         if (sliderWidth > 0) {
@@ -382,10 +386,12 @@ fun VetraRangeSlider(
 
             val actualValue = valueRange.start + newValue * (valueRange.endInclusive - valueRange.start)
 
+            val currentValues = currentValuesState.value
+
             val newRange = if (isStartThumb) {
-                actualValue.coerceAtMost(values.endInclusive)..values.endInclusive
+                actualValue.coerceAtMost(currentValues.endInclusive)..currentValues.endInclusive
             } else {
-                values.start..actualValue.coerceAtLeast(values.start)
+                currentValues.start..actualValue.coerceAtLeast(currentValues.start)
             }
 
             onValuesChange(newRange)
@@ -457,7 +463,7 @@ fun VetraRangeSlider(
                         detectDragGestures(
                             onDragStart = {
                                 isDraggingStart = true
-                                startInitialPosition = sliderSize.width * normalizedStart
+                                startInitialPosition = sliderSize.width * currentNormalizedStartState.value
                                 startDragOffset = 0f
                             },
                             onDragEnd = {
@@ -511,7 +517,7 @@ fun VetraRangeSlider(
                         detectDragGestures(
                             onDragStart = {
                                 isDraggingEnd = true
-                                endInitialPosition = sliderSize.width * normalizedEnd
+                                endInitialPosition = sliderSize.width * currentNormalizedEndState.value
                                 endDragOffset = 0f
                             },
                             onDragEnd = {
@@ -653,4 +659,3 @@ private fun VetraSliderDarkPreview() {
         }
     }
 }
-
