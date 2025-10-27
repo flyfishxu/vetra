@@ -10,8 +10,8 @@
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.2.21-blue.svg)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Compose%20Multiplatform-1.9.1-brightgreen.svg)](https://www.jetbrains.com/compose-multiplatform/)
-[![License](https://img.shields.io/badge/MIT-yellow.svg)](https://opensource.org/licenses/Apache2.0 )
-
+[![Maven Central](https://img.shields.io/maven-central/v/com.flyfishxu.vetraui/core)](https://central.sonatype.com/artifact/com.flyfishxu.vetraui/core)
+[![License](https://img.shields.io/badge/MIT-yellow.svg)](https://opensource.org/licenses/MIT )
 </div>
 
 <div align="center">
@@ -35,13 +35,11 @@ Vetra UI is a modern design system built from the ground up for Compose Multipla
 - Support Android iOS and Desktop
 
 ### Dark Mode
-
 - Cross-platform theme management
 - Carefully calibrated dark color palette
 - Smooth theme transition animations
 
 ### Developer Friendly
-
 - API design similar to Material Design for low learning curve
 - Clear naming conventions and comprehensive documentation
 - Rich Preview examples for every component
@@ -50,7 +48,6 @@ Vetra UI is a modern design system built from the ground up for Compose Multipla
 - Elegance over Flash: No effects for effect's sake—every animation serves a purpose
 - Unity over Variety: Consistent design language reduces cognitive load
 - Natural over Mechanical: Motion follows physics, interactions follow intuition
-- Space over Density: Give content room to breathe
 - Clarity over Abstraction: Intuitive naming, predictable APIs
 
 ## Quick Start
@@ -90,29 +87,21 @@ fun App() {
                 .padding(24.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Primary Button
+            // Button
             VetraButton(onClick = { /* ... */ }) {
                 Text("Get Started")
             }
             
-            // Elegant Card
+            // Card
             VetraCard {
                 Text("Beautiful content in a refined container")
             }
             
-            // Basic TextField (for search, simple input)
+            // TextField
             VetraTextField(
                 value = searchText,
                 onValueChange = { searchText = it },
                 placeholder = "Search..."
-            )
-            
-            // Floating Label TextField (for forms)
-            VetraFloatingTextField(
-                value = name,
-                onValueChange = { name = it },
-                label = "Full Name",
-                placeholder = "Enter your name"
             )
         }
     }
