@@ -18,17 +18,6 @@
   <img src="images/showcase.png" alt="Vetra UI Components Showcase" width="100%"/>
 </div>
 
-## Philosophy
-
-Vetra UI is a modern design system built from the ground up for Compose Multiplatform. We define our own visual language with careful attention to every interaction detail.
-
-**Core Principles:**
-
-- **Independent Design Language** - Semantic naming (`brand`, `accent`, `canvas`), spring-based motion curves, and harmonious proportions
-- **Simplicity with Depth** - Clean interfaces with thoughtful details: soft shadows, subtle transitions, generous whitespace
-- **Flowing Interactions** - Organic feedback with elastic animations, progressive states, and spring physics
-- **Light & Depth** - Seven elevation levels create natural depth perception through carefully calibrated shadows
-
 ## Features
 
 ### Cross-Platform

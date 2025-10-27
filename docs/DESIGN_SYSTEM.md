@@ -4,15 +4,19 @@
 
 ## Philosophy
 
-Vetra UI is built on the principle of **elegant simplicity**. We believe that beautiful interfaces should be intuitive, accessible, and a joy to use. Unlike Material Design, which follows Google's specific design language, Vetra UI creates a universal aesthetic that works across all platforms and contexts.
+Vetra UI is a modern design system built from the ground up for Compose Multiplatform. We define our own visual language with careful attention to every interaction detail, built on the principle of **elegant simplicity**. We believe that beautiful interfaces should be intuitive, accessible, and a joy to use. Unlike Material Design, which follows Google's specific design language, Vetra UI creates a universal aesthetic that works across all platforms and contexts.
 
 ### Core Principles
 
-1. **Clarity First** - Every element has a clear purpose and hierarchy
-2. **Universal Appeal** - Design that resonates with all audiences
-3. **Intuitive Semantics** - Color and component names that make sense
-4. **Elegant Motion** - Smooth, purposeful animations
-5. **Accessible by Default** - Everyone can use your app comfortably
+1. **Independent Design Language** - Semantic naming (`brand`, `accent`, `canvas`), spring-based motion curves, and harmonious proportions
+2. **Simplicity with Depth** - Clean interfaces with thoughtful details: soft shadows, subtle transitions, generous whitespace
+3. **Flowing Interactions** - Organic feedback with elastic animations, progressive states, and spring physics
+4. **Light & Depth** - Seven elevation levels create natural depth perception through carefully calibrated shadows
+5. **Clarity First** - Every element has a clear purpose and hierarchy
+6. **Universal Appeal** - Design that resonates with all audiences
+7. **Intuitive Semantics** - Color and component names that make sense
+8. **Elegant Motion** - Smooth, purposeful animations
+9. **Accessible by Default** - Everyone can use your app comfortably
 
 ---
 

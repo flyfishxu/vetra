@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -90,7 +91,7 @@ fun VetraButton(
                 enabled = enabled,
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = null
+                indication = ripple(color = Color.White.copy(alpha = 0.3f))
             )
             .padding(horizontal = ButtonHorizontalPadding, vertical = ButtonVerticalPadding),
         contentAlignment = Alignment.Center
@@ -147,7 +148,7 @@ fun VetraSecondaryButton(
                 enabled = enabled,
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = null
+                indication = ripple(color = Color.White.copy(alpha = 0.3f))
             )
             .padding(horizontal = ButtonHorizontalPadding, vertical = ButtonVerticalPadding),
         contentAlignment = Alignment.Center
@@ -209,7 +210,7 @@ fun VetraOutlinedButton(
                 onClick = onClick,
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = null
+                indication = ripple(color = colors.brand.copy(alpha = 0.2f))
             )
             .padding(
                 horizontal = ButtonHorizontalPadding - 2.dp,
@@ -265,7 +266,7 @@ fun VetraGhostButton(
                 onClick = onClick,
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = null
+                indication = ripple(color = colors.brand.copy(alpha = 0.15f))
             )
             .padding(horizontal = ButtonHorizontalPadding, vertical = ButtonVerticalPadding),
         contentAlignment = Alignment.Center
@@ -322,7 +323,7 @@ fun VetraDangerButton(
                 enabled = enabled,
                 role = Role.Button,
                 interactionSource = interactionSource,
-                indication = null
+                indication = ripple(color = Color.White.copy(alpha = 0.3f))
             )
             .padding(horizontal = ButtonHorizontalPadding, vertical = ButtonVerticalPadding),
         contentAlignment = Alignment.Center
