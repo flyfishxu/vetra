@@ -1,5 +1,6 @@
 package com.flyfishxu.vetraui.core
 
+import androidx.compose.animation.animateColor
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.EaseInOutCubic
 import androidx.compose.animation.core.EaseOut
@@ -10,6 +11,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -66,6 +68,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * - Animated pill indicator with smooth transitions
  * - Icon scale animations for selected state
  * - Subtle label fade effects
+ * - Interactive ripple effect matching the indicator shape
  * - Clean, minimal aesthetic
  * - No heavy shadows, just elevation through color
  */
@@ -156,11 +159,20 @@ fun RowScope.VetraNavigationBarItem(
         label = "labelColor"
     )
 
-    val backgroundColor by animateColorAsState(
-        targetValue = if (selected) colors.brandSubtle else Color.Transparent,
-        animationSpec = tween(durationMillis = AnimationDuration, easing = EaseInOutCubic),
+    val backgroundColor by transition.animateColor(
+        transitionSpec = {
+            if (targetState) {
+                // Entering - fast appearance to sync with ripple
+                tween(durationMillis = 200, easing = EaseOut)
+            } else {
+                // Exiting - quick fade
+                tween(durationMillis = 150, easing = EaseOut)
+            }
+        },
         label = "backgroundColor"
-    )
+    ) { isSelected ->
+        if (isSelected) colors.brandSubtle else Color.Transparent
+    }
 
     // Icon scale - bouncy when entering (selected), fast when exiting
     val iconScale by transition.animateFloat(
@@ -181,12 +193,12 @@ fun RowScope.VetraNavigationBarItem(
         if (isSelected) 1.1f else 1f
     }
 
-    // Indicator alpha - smooth fade in when entering, quick fade out when exiting
+    // Indicator alpha - fast fade in when entering to sync with ripple, quick fade out when exiting
     val indicatorAlpha by transition.animateFloat(
         transitionSpec = {
             if (targetState) {
-                // Entering - smooth fade in
-                tween(durationMillis = 300, easing = EaseInOutCubic)
+                // Entering - fast fade in to sync with ripple (200ms)
+                tween(durationMillis = 200, easing = EaseOut)
             } else {
                 // Exiting - quick fade out
                 tween(durationMillis = 150, easing = EaseOut)
@@ -201,11 +213,11 @@ fun RowScope.VetraNavigationBarItem(
     val labelAlpha by transition.animateFloat(
         transitionSpec = {
             if (targetState) {
-                // Entering - slower fade in
-                tween(durationMillis = 300, delayMillis = 50)
+                // Entering - fade in with slight delay to follow the background
+                tween(durationMillis = 250, delayMillis = 50, easing = EaseOut)
             } else {
                 // Exiting - quick fade
-                tween(durationMillis = 150)
+                tween(durationMillis = 150, easing = EaseOut)
             }
         },
         label = "labelAlpha"
@@ -217,7 +229,6 @@ fun RowScope.VetraNavigationBarItem(
         modifier = modifier
             .weight(1f)
             .fillMaxHeight()
-            .clip(shapes.lg)
             .clickable(
                 onClick = onClick,
                 enabled = enabled,
@@ -227,6 +238,23 @@ fun RowScope.VetraNavigationBarItem(
             ),
         contentAlignment = Alignment.Center
     ) {
+        // Ripple layer - matches the indicator size and shape
+        Box(
+            modifier = Modifier
+                .size(
+                    width = NavigationItemSize * 1.8f,
+                    height = NavigationItemSize * 1.5f
+                )
+                .clip(shapes.full)
+                .indication(
+                    interactionSource = interactionSource,
+                    indication = ripple(
+                        bounded = true,
+                        color = colors.brand
+                    )
+                )
+        )
+
         // Background indicator
         Box(
             modifier = Modifier
