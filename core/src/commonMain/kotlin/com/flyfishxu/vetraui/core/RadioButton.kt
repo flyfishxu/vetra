@@ -42,14 +42,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * - Clear visual feedback
  * - Accessible by default
  *
- * Usage:
- * ```
- * var selected by remember { mutableStateOf(false) }
- * VetraRadioButton(
- *     selected = selected,
- *     onClick = { selected = !selected }
- * )
- * ```
  */
 
 private val RadioButtonSize = 20.dp

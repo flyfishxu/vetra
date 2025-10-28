@@ -1,18 +1,40 @@
 package com.flyfishxu.vetraui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Label
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.GridView
+import androidx.compose.material.icons.filled.HourglassBottom
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.QuestionAnswer
+import androidx.compose.material.icons.filled.TouchApp
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.*
+import com.flyfishxu.vetraui.core.DividerOrientation
+import com.flyfishxu.vetraui.core.VetraCard
+import com.flyfishxu.vetraui.core.VetraDivider
+import com.flyfishxu.vetraui.core.VetraOutlinedCard
+import com.flyfishxu.vetraui.core.VetraSubtleDivider
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 import com.flyfishxu.vetraui.navigation.Destination
 
@@ -203,7 +225,7 @@ private fun ComponentCategoryCard(
     title: String,
     description: String,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
-    iconColor: androidx.compose.ui.graphics.Color,
+    iconColor: Color,
     onClick: () -> Unit
 ) {
     val colors = VetraTheme.colors
@@ -265,7 +287,7 @@ private fun ComponentCategoryCard(
 private fun StatItem(
     value: String,
     label: String,
-    color: androidx.compose.ui.graphics.Color
+    color: Color
 ) {
     val typography = VetraTheme.typography
     val colors = VetraTheme.colors

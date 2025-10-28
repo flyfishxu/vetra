@@ -48,15 +48,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * - Indeterminate state support
  * - Clear visual feedback
  * - Accessible by default
- *
- * Usage:
- * ```
- * var checked by remember { mutableStateOf(false) }
- * VetraCheckbox(
- *     checked = checked,
- *     onCheckedChange = { checked = it }
- * )
- * ```
  */
 
 private val CheckboxSize = 20.dp

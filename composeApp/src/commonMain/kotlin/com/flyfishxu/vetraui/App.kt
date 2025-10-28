@@ -45,8 +45,20 @@ import com.flyfishxu.vetraui.core.VetraNavigationBarItem
 import com.flyfishxu.vetraui.core.VetraOutlinedCard
 import com.flyfishxu.vetraui.core.VetraTopAppBar
 import com.flyfishxu.vetraui.core.theme.VetraTheme
-import com.flyfishxu.vetraui.navigation.*
-import com.flyfishxu.vetraui.screens.*
+import com.flyfishxu.vetraui.navigation.BackHandler
+import com.flyfishxu.vetraui.navigation.Destination
+import com.flyfishxu.vetraui.navigation.getMainTab
+import com.flyfishxu.vetraui.navigation.rememberNavigationState
+import com.flyfishxu.vetraui.screens.BadgesAndChipsScreen
+import com.flyfishxu.vetraui.screens.ButtonsScreen
+import com.flyfishxu.vetraui.screens.CardsScreen
+import com.flyfishxu.vetraui.screens.ComponentsGalleryScreen
+import com.flyfishxu.vetraui.screens.DialogsScreen
+import com.flyfishxu.vetraui.screens.InputsScreen
+import com.flyfishxu.vetraui.screens.LoadingScreen
+import com.flyfishxu.vetraui.screens.MenuScreen
+import com.flyfishxu.vetraui.screens.SettingsScreen
+import com.flyfishxu.vetraui.screens.SlidersScreen
 import com.flyfishxu.vetraui.theme.ThemeMode
 import com.flyfishxu.vetraui.theme.isSystemInDarkTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -81,7 +93,7 @@ fun App(
 
     // Navigation state
     val navigationState = rememberNavigationState()
-    
+
     // Handle back press
     BackHandler(enabled = navigationState.canGoBack) {
         navigationState.navigateBack()
@@ -111,6 +123,7 @@ fun App(
                             is Destination.LoadingDetail -> "Loading"
                             is Destination.BadgesAndChipsDetail -> "Badges & Chips"
                             is Destination.DialogsDetail -> "Dialogs"
+                            is Destination.PullToRefreshDetail -> "Pull to Refresh"
                         }
                     )
                 },
@@ -152,14 +165,14 @@ fun App(
                     is Destination.Components -> ComponentsGalleryScreen(
                         onNavigateToDetail = { destination -> navigationState.navigateTo(destination) }
                     )
-                    
+
                     is Destination.Settings -> SettingsScreen(
                         themeMode = themeMode,
                         systemInDarkMode = systemInDarkMode,
                         actualDarkMode = isDarkMode,
                         onThemeModeChange = { themeMode = it }
                     )
-                    
+
                     // Component detail screens
                     is Destination.ButtonsDetail -> ButtonsScreen()
                     is Destination.CardsDetail -> CardsScreen()
@@ -169,6 +182,7 @@ fun App(
                     is Destination.LoadingDetail -> LoadingScreen()
                     is Destination.BadgesAndChipsDetail -> BadgesAndChipsScreen()
                     is Destination.DialogsDetail -> DialogsScreen()
+                    is Destination.PullToRefreshDetail -> TODO()
                 }
             }
 
@@ -176,7 +190,7 @@ fun App(
             VetraNavigationBar {
                 VetraNavigationBarItem(
                     selected = navigationState.currentDestination.getMainTab() is Destination.Home,
-                    onClick = { 
+                    onClick = {
                         if (navigationState.currentDestination !is Destination.Home) {
                             navigationState.navigateAndClearStack(Destination.Home)
                         }
@@ -187,7 +201,7 @@ fun App(
                 )
                 VetraNavigationBarItem(
                     selected = navigationState.currentDestination.getMainTab() is Destination.Components,
-                    onClick = { 
+                    onClick = {
                         val mainTab = navigationState.currentDestination.getMainTab()
                         if (mainTab !is Destination.Components) {
                             navigationState.navigateAndClearStack(Destination.Components)
@@ -202,7 +216,7 @@ fun App(
                 )
                 VetraNavigationBarItem(
                     selected = navigationState.currentDestination.getMainTab() is Destination.Settings,
-                    onClick = { 
+                    onClick = {
                         if (navigationState.currentDestination !is Destination.Settings) {
                             navigationState.navigateAndClearStack(Destination.Settings)
                         }

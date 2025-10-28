@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
@@ -27,7 +26,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.flyfishxu.vetraui.core.*
+import com.flyfishxu.vetraui.core.VetraBadge
+import com.flyfishxu.vetraui.core.VetraBadgeDanger
+import com.flyfishxu.vetraui.core.VetraBadgeDot
+import com.flyfishxu.vetraui.core.VetraBadgeInfo
+import com.flyfishxu.vetraui.core.VetraBadgeOutlined
+import com.flyfishxu.vetraui.core.VetraBadgeSecondary
+import com.flyfishxu.vetraui.core.VetraBadgeSuccess
+import com.flyfishxu.vetraui.core.VetraBadgeWarning
+import com.flyfishxu.vetraui.core.VetraCard
+import com.flyfishxu.vetraui.core.VetraChip
+import com.flyfishxu.vetraui.core.VetraChipAssist
+import com.flyfishxu.vetraui.core.VetraChipElevated
+import com.flyfishxu.vetraui.core.VetraChipFilter
+import com.flyfishxu.vetraui.core.VetraChipOutlined
+import com.flyfishxu.vetraui.core.VetraOutlinedCard
+import com.flyfishxu.vetraui.core.VetraSubtleDivider
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -173,7 +187,10 @@ fun BadgesAndChipsScreen() {
                         style = typography.bodyMd.copy(color = colors.textSecondary)
                     )
 
-                    Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(top = 8.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) {
                         // Empty dots
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -214,7 +231,10 @@ fun BadgesAndChipsScreen() {
                         style = typography.bodyMd.copy(color = colors.textSecondary)
                     )
 
-                    Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(top = 8.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) {
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -303,14 +323,20 @@ fun BadgesAndChipsScreen() {
                         style = typography.bodyMd.copy(color = colors.textSecondary)
                     )
 
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) {
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             VetraChip(label = "Simple", onClick = {})
                             VetraChip(label = "Clickable", onClick = {})
                         }
 
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            VetraChip(label = "With Icon", leadingIcon = Icons.Default.Star, onClick = {})
+                            VetraChip(
+                                label = "With Icon",
+                                leadingIcon = Icons.Default.Star,
+                                onClick = {})
                             VetraChip(
                                 label = "Removable",
                                 trailingIcon = Icons.Default.Close,
@@ -345,7 +371,10 @@ fun BadgesAndChipsScreen() {
                         modifier = Modifier.padding(top = 8.dp)
                     ) {
                         VetraChipOutlined(label = "Kotlin", onClick = {})
-                        VetraChipOutlined(label = "Compose", leadingIcon = Icons.Default.Star, onClick = {})
+                        VetraChipOutlined(
+                            label = "Compose",
+                            leadingIcon = Icons.Default.Star,
+                            onClick = {})
                         VetraChipOutlined(
                             label = "Android",
                             trailingIcon = Icons.Default.Close,
@@ -375,7 +404,10 @@ fun BadgesAndChipsScreen() {
                         modifier = Modifier.padding(top = 8.dp)
                     ) {
                         VetraChipElevated(label = "Elevated", onClick = {})
-                        VetraChipElevated(label = "Featured", leadingIcon = Icons.Default.Star, onClick = {})
+                        VetraChipElevated(
+                            label = "Featured",
+                            leadingIcon = Icons.Default.Star,
+                            onClick = {})
                         VetraChipElevated(
                             label = "Premium",
                             trailingIcon = Icons.Default.Close,
@@ -404,9 +436,17 @@ fun BadgesAndChipsScreen() {
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         modifier = Modifier.padding(top = 8.dp)
                     ) {
-                        VetraChipAssist(label = "Add to cart", onClick = {}, leadingIcon = Icons.Default.Add)
+                        VetraChipAssist(
+                            label = "Add to cart",
+                            onClick = {},
+                            leadingIcon = Icons.Default.Add
+                        )
                         VetraChipAssist(label = "Share", onClick = {})
-                        VetraChipAssist(label = "Bookmark", onClick = {}, leadingIcon = Icons.Default.Star)
+                        VetraChipAssist(
+                            label = "Bookmark",
+                            onClick = {},
+                            leadingIcon = Icons.Default.Star
+                        )
                     }
                 }
             }
@@ -427,7 +467,10 @@ fun BadgesAndChipsScreen() {
 
                     var selectedFilters by remember { mutableStateOf(setOf("All")) }
 
-                    Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.padding(top = 8.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) {
                         Text(
                             "Status Filter:",
                             style = typography.bodySm.copy(color = colors.textSecondary)
@@ -502,7 +545,10 @@ fun BadgesAndChipsScreen() {
                         mutableStateOf(listOf("Design", "Development", "UI/UX"))
                     }
 
-                    Column(verticalArrangement = Arrangement.spacedBy(12.dp), modifier = Modifier.padding(top = 8.dp)) {
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(12.dp),
+                        modifier = Modifier.padding(top = 8.dp)
+                    ) {
                         Text(
                             "Selected Tags (${selectedTags.size}):",
                             style = typography.bodySm.copy(color = colors.textSecondary)

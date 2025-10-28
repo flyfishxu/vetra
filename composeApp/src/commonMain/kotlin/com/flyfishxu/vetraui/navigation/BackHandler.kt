@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 
 /**
  * Platform-specific back handler
- * 
+ *
  * Common expect declaration
  */
 @Composable

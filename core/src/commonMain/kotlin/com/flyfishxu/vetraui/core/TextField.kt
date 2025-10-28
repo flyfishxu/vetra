@@ -37,17 +37,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import com.flyfishxu.vetraui.core.theme.VetraTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -64,9 +60,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
  * - Clear visual states (unfocused, focused, error, disabled)
  * - Customizable leading and trailing icons
  * - Support for single and multiline input
- *
- * This component combines the best of modern UI design with accessibility
- * and usability in mind.
  */
 
 private val TextFieldHeight = 58.dp
@@ -253,7 +246,7 @@ fun VetraTextField(
                             alpha = labelAlpha
                         }
                     )
-                ) {
+            ) {
                 if (value.isEmpty() && label.isNullOrEmpty()) Text(
                     text = placeholder ?: "",
                     style = typography.bodyLg.copy(color = labelColor),

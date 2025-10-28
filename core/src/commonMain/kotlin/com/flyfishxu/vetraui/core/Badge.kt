@@ -394,7 +394,10 @@ private fun VetraBadgePreview() {
                 "Dot Badges",
                 style = VetraTheme.typography.headingSm.copy(color = VetraTheme.colors.textPrimary)
             )
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 VetraBadgeDot()
                 VetraBadgeDot(count = 5)
                 VetraBadgeDot(count = 12)

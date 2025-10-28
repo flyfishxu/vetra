@@ -5,10 +5,23 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -81,9 +94,10 @@ fun VetraSlider(
 
     // Calculate normalized value and snap to step if discrete
     val normalizedValue = remember(value, valueRange, steps) {
-        val rawNormalized = ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start))
-            .coerceIn(0f, 1f)
-        
+        val rawNormalized =
+            ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start))
+                .coerceIn(0f, 1f)
+
         if (steps > 0) {
             // Snap to nearest step for discrete slider
             val stepSize = 1f / (steps + 1)
@@ -139,7 +153,8 @@ fun VetraSlider(
                                 normalizedPos
                             }
 
-                            val actualValue = valueRange.start + newValue * (valueRange.endInclusive - valueRange.start)
+                            val actualValue =
+                                valueRange.start + newValue * (valueRange.endInclusive - valueRange.start)
                             onValueChange(actualValue)
                         }
                     }
@@ -315,7 +330,7 @@ fun VetraRangeSlider(
     var isDraggingStart by remember { mutableStateOf(false) }
     var isDraggingEnd by remember { mutableStateOf(false) }
     var sliderSize by remember { mutableStateOf(IntSize.Zero) }
-    
+
     // Track initial position and drag offset for each thumb
     var startInitialPosition by remember { mutableStateOf(0f) }
     var startDragOffset by remember { mutableStateOf(0f) }
@@ -336,9 +351,10 @@ fun VetraRangeSlider(
 
     // Calculate normalized values and snap to steps if discrete
     val normalizedStart = remember(values.start, valueRange, steps) {
-        val rawNormalized = ((values.start - valueRange.start) / (valueRange.endInclusive - valueRange.start))
-            .coerceIn(0f, 1f)
-        
+        val rawNormalized =
+            ((values.start - valueRange.start) / (valueRange.endInclusive - valueRange.start))
+                .coerceIn(0f, 1f)
+
         if (steps > 0) {
             val stepSize = 1f / (steps + 1)
             val nearestStep = round(rawNormalized / stepSize).toInt()
@@ -347,11 +363,12 @@ fun VetraRangeSlider(
             rawNormalized
         }
     }
-    
+
     val normalizedEnd = remember(values.endInclusive, valueRange, steps) {
-        val rawNormalized = ((values.endInclusive - valueRange.start) / (valueRange.endInclusive - valueRange.start))
-            .coerceIn(0f, 1f)
-        
+        val rawNormalized =
+            ((values.endInclusive - valueRange.start) / (valueRange.endInclusive - valueRange.start))
+                .coerceIn(0f, 1f)
+
         if (steps > 0) {
             val stepSize = 1f / (steps + 1)
             val nearestStep = round(rawNormalized / stepSize).toInt()
@@ -384,7 +401,8 @@ fun VetraRangeSlider(
                 normalizedPos
             }
 
-            val actualValue = valueRange.start + newValue * (valueRange.endInclusive - valueRange.start)
+            val actualValue =
+                valueRange.start + newValue * (valueRange.endInclusive - valueRange.start)
 
             val currentValues = currentValuesState.value
 
@@ -463,7 +481,8 @@ fun VetraRangeSlider(
                         detectDragGestures(
                             onDragStart = {
                                 isDraggingStart = true
-                                startInitialPosition = sliderSize.width * currentNormalizedStartState.value
+                                startInitialPosition =
+                                    sliderSize.width * currentNormalizedStartState.value
                                 startDragOffset = 0f
                             },
                             onDragEnd = {
@@ -517,7 +536,8 @@ fun VetraRangeSlider(
                         detectDragGestures(
                             onDragStart = {
                                 isDraggingEnd = true
-                                endInitialPosition = sliderSize.width * currentNormalizedEndState.value
+                                endInitialPosition =
+                                    sliderSize.width * currentNormalizedEndState.value
                                 endDragOffset = 0f
                             },
                             onDragEnd = {

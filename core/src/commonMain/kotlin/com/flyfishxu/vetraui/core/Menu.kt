@@ -205,7 +205,7 @@ fun VetraMenuItem(
     val shapes = VetraTheme.shapes
 
     val finalContentColor = if (enabled) contentColor else colors.textDisabled
-    
+
     // Get dismiss callback from CompositionLocal
     val dismissMenu = LocalMenuDismiss.current
 

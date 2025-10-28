@@ -1,12 +1,10 @@
 package com.flyfishxu.vetraui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.Saver
 import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 
 /**
  * Navigation destinations in the app
@@ -15,7 +13,7 @@ sealed class Destination {
     data object Home : Destination()
     data object Components : Destination()
     data object Settings : Destination()
-    
+
     // Component detail screens
     data object ButtonsDetail : Destination()
     data object CardsDetail : Destination()
@@ -25,6 +23,7 @@ sealed class Destination {
     data object LoadingDetail : Destination()
     data object BadgesAndChipsDetail : Destination()
     data object DialogsDetail : Destination()
+    data object PullToRefreshDetail : Destination()
 }
 
 /**
@@ -35,34 +34,34 @@ class NavigationState(
 ) {
     private val _stack = mutableStateOf(listOf(initialDestination))
     val stack: List<Destination> get() = _stack.value
-    
+
     val currentDestination: Destination
         get() = _stack.value.lastOrNull() ?: Destination.Home
-    
+
     val canGoBack: Boolean
         get() = _stack.value.size > 1
-    
+
     /**
      * Navigate to a new destination
      */
     fun navigateTo(destination: Destination) {
         // Don't add duplicate if it's already the current screen
         if (currentDestination == destination) return
-        
+
         _stack.value = _stack.value + destination
     }
-    
+
     /**
      * Navigate back to the previous screen
      * @return true if navigation happened, false if already at root
      */
     fun navigateBack(): Boolean {
         if (!canGoBack) return false
-        
+
         _stack.value = _stack.value.dropLast(1)
         return true
     }
-    
+
     /**
      * Navigate back to a specific destination, removing all screens above it
      */
@@ -72,14 +71,14 @@ class NavigationState(
             _stack.value = _stack.value.take(index + 1)
         }
     }
-    
+
     /**
      * Navigate to a destination and clear the stack
      */
     fun navigateAndClearStack(destination: Destination) {
         _stack.value = listOf(destination)
     }
-    
+
     companion object {
         val Saver: Saver<NavigationState, *> = listSaver(
             save = { state ->
@@ -96,6 +95,7 @@ class NavigationState(
                         is Destination.LoadingDetail -> "LoadingDetail"
                         is Destination.BadgesAndChipsDetail -> "BadgesAndChipsDetail"
                         is Destination.DialogsDetail -> "DialogsDetail"
+                        is Destination.PullToRefreshDetail -> "PullToRefreshDetail"
                     }
                 }
             },
@@ -113,6 +113,7 @@ class NavigationState(
                         "LoadingDetail" -> Destination.LoadingDetail
                         "BadgesAndChipsDetail" -> Destination.BadgesAndChipsDetail
                         "DialogsDetail" -> Destination.DialogsDetail
+                        "PullToRefreshDetail" -> Destination.PullToRefreshDetail
                         else -> null
                     }
                 }
@@ -152,7 +153,9 @@ fun Destination.getMainTab(): Destination {
         is Destination.MenuDetail,
         is Destination.LoadingDetail,
         is Destination.BadgesAndChipsDetail,
-        is Destination.DialogsDetail -> Destination.Components
+        is Destination.DialogsDetail,
+        is Destination.PullToRefreshDetail -> Destination.Components
+
         is Destination.Settings -> Destination.Settings
     }
 }
@@ -162,7 +165,7 @@ fun Destination.getMainTab(): Destination {
  */
 fun Destination.isMainTab(): Boolean {
     return this is Destination.Home ||
-           this is Destination.Components ||
-           this is Destination.Settings
+            this is Destination.Components ||
+            this is Destination.Settings
 }
 
