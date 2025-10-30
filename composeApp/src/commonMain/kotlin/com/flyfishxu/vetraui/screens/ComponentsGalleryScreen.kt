@@ -159,6 +159,17 @@ fun ComponentsGalleryScreen(
             )
         }
 
+        // Pull to Refresh
+        item {
+            ComponentCategoryCard(
+                title = "Pull to Refresh",
+                description = "Modern pull-to-refresh component with smooth animations",
+                icon = Icons.Filled.TouchApp,
+                iconColor = colors.success,
+                onClick = { onNavigateToDetail(Destination.PullToRefreshDetail) }
+            )
+        }
+
         // Quick Stats
         item {
             VetraOutlinedCard(modifier = Modifier.fillMaxWidth()) {

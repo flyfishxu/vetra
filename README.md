@@ -41,7 +41,7 @@
 
 ## Quick Start
 
-### Installation (Still developing, not yet released)
+### Installation
 
 Add dependency in `libs.versions.toml`:
 

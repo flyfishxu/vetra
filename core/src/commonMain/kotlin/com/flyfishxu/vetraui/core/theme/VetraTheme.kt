@@ -17,24 +17,6 @@ import androidx.compose.runtime.ReadOnlyComposable
  * - Easy to customize
  * - Accessible and modern
  *
- * Usage:
- * ```
- * VetraTheme(darkMode = false) {
- *     // Your app content
- * }
- * ```
- *
- * Custom colors:
- * ```
- * VetraTheme(
- *     colors = VetraLightColorScheme.copy(
- *         brand = Color(0xFF1E40AF)
- *     )
- * ) {
- *     // Your app content
- * }
- * ```
- *
  * @param darkMode Whether to use dark mode
  * @param colors Custom color scheme (defaults to built-in light/dark schemes)
  * @param typography Custom typography (defaults to DefaultVetraTypography)

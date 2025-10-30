@@ -57,8 +57,9 @@ import com.flyfishxu.vetraui.screens.DialogsScreen
 import com.flyfishxu.vetraui.screens.InputsScreen
 import com.flyfishxu.vetraui.screens.LoadingScreen
 import com.flyfishxu.vetraui.screens.MenuScreen
-import com.flyfishxu.vetraui.screens.SettingsScreen
 import com.flyfishxu.vetraui.screens.SlidersScreen
+import com.flyfishxu.vetraui.screens.PullToRefreshScreen
+import com.flyfishxu.vetraui.screens.SettingsScreen
 import com.flyfishxu.vetraui.theme.ThemeMode
 import com.flyfishxu.vetraui.theme.isSystemInDarkTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -182,7 +183,7 @@ fun App(
                     is Destination.LoadingDetail -> LoadingScreen()
                     is Destination.BadgesAndChipsDetail -> BadgesAndChipsScreen()
                     is Destination.DialogsDetail -> DialogsScreen()
-                    is Destination.PullToRefreshDetail -> TODO()
+                    is Destination.PullToRefreshDetail -> PullToRefreshScreen()
                 }
             }
 
